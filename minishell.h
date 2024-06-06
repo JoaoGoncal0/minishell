@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/05/27 18:01:24 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:48:42 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <limits.h>
 
 typedef struct s_vars
 {
@@ -45,5 +46,11 @@ void	init_export(t_vars *mini);
 int		export_builtin(t_vars *mini);
 void	swap_strings(char **a, char **b);
 void	sorting_export(t_vars *mini);
+void	free_split(char **str);
+int		not_number(char *str);
+void	exit_anyways(char **str);
+int		exit_builtin(t_vars *mini);
+int		is_flag(char *str);
+int		echo_builtin(t_vars *mini);
 
 #endif

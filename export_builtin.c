@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/05/27 18:02:16 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:56:42 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	sorting_export(t_vars *mini)
 		i = 0;
 		while (i < mini->env_len - 1)
 		{
-			if (strcmp(mini->export[i], mini->export[i + 1]) > 0)
+			if (ft_strncmp(mini->export[i], mini->export[i + 1], ft_strlen(mini->export[i])) > 0)
 			{
 				swap_strings(&mini->export[i], &mini->export[i + 1]);
 				swapped = 1;

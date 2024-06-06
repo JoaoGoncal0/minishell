@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/05/27 18:05:29 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 15:55:05 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,14 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			if (ft_strncmp(mini.input, "env", 3) == 0)
+			if (ft_strncmp(mini.input, "env\0", 4) == 0)
                 env_builtin(&mini);
-			else if (ft_strncmp(mini.input, "export", 6) == 0)
+			else if (ft_strncmp(mini.input, "export\0", 7) == 0)
                 export_builtin(&mini);
+			else if (ft_strncmp(mini.input, "echo\0", 5) == 0)
+                echo_builtin(&mini);
+			else if (ft_strncmp(mini.input, "exit\0", 5) == 0)
+                exit_builtin(&mini);
 			else if (checkinput(&mini, env) != 0)
 				executecmd(&mini, env);
 			else

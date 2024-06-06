@@ -4,7 +4,9 @@ SRCS = main.c \
 		parse.c \
 		command.c \
 		env_builtin.c \
-		export_builtin.c
+		export_builtin.c \
+		exit_builtin.c \
+		echo_builtin.c
 
 GNL = get_next_line_utils.c get_next_line.c
 
