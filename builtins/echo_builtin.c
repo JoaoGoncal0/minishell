@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   echo_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dinda-si <dinda-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/06/06 15:52:37 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:07:08 by dinda-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	is_flag(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	// printf("str = %s\n", str);
 	while (str[i])
@@ -39,14 +39,14 @@ int	is_flag(char *str)
 	return (1);
 }
 
-
-int	echo_builtin(t_vars *mini)
+int	
+echo_builtin(t_vars *mini)
 {
-	int	i;
-	char **split;
-	int	new_line;
+	int		i;
+	char	**split;
+	int		new_line;
 	// int u = -1;
-	
+
 	i = 0;
 	new_line = 1;
 	split = ft_split(mini->input, ' ');

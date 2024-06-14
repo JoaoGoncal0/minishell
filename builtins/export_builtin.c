@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   export_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/06/06 12:56:42 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:11:49 by elemesmo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_export(t_vars *mini)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	mini->export = malloc(sizeof(char *) * (mini->env_len + 5));
@@ -31,7 +31,7 @@ void	init_export(t_vars *mini)
 
 int	export_builtin(t_vars *mini)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < mini->env_len)
@@ -39,20 +39,20 @@ int	export_builtin(t_vars *mini)
 	return (0);
 }
 
-void swap_strings(char **a, char **b) 
+void	swap_strings(char **a, char **b)
 {
-    char *tmp;
-	
+	char	*tmp;
+
 	tmp = *a;
-    *a = *b;
-    *b = tmp;
+	*a = *b;
+	*b = tmp;
 }
 
 void	sorting_export(t_vars *mini)
 {
-	int i;
-	int swapped;
-	
+	int	i;
+	int	swapped;
+
 	if (mini->env_len < 2)
 		return ;
 	swapped = 1;
@@ -62,7 +62,8 @@ void	sorting_export(t_vars *mini)
 		i = 0;
 		while (i < mini->env_len - 1)
 		{
-			if (ft_strncmp(mini->export[i], mini->export[i + 1], ft_strlen(mini->export[i])) > 0)
+			if (ft_strncmp(mini->export[i], \
+				mini->export[i + 1], ft_strlen(mini->export[i])) > 0)
 			{
 				swap_strings(&mini->export[i], &mini->export[i + 1]);
 				swapped = 1;

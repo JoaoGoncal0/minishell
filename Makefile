@@ -1,12 +1,8 @@
 NAME = minishell
 
-SRCS = main.c \
-		parse.c \
-		command.c \
-		env_builtin.c \
-		export_builtin.c \
-		exit_builtin.c \
-		echo_builtin.c
+SRCS = main.c goodsplit.c executecmd.c paths.c utils.c moreutils.c quotes.c
+
+BUILT = echo_builtin.c env_builtin.c exit_builtin.c export_builtin.c
 
 GNL = get_next_line_utils.c get_next_line.c
 
@@ -20,10 +16,10 @@ OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(addprefix get_next_line/,$(GNL)) 
+$(NAME): $(OBJ) $(addprefix get_next_line/,$(GNL))
 		@make -s -C ft_printf
 		@make -s -C libft
-		@$(CC) -g $(CFLAGS) $(OBJ) ft_printf/libftprintf.a libft/libft.a -o $(NAME) -lreadline
+		@$(CC) -g $(CFLAGS) $(OBJ) $(addprefix builtins/,$(BUILT)) ft_printf/libftprintf.a libft/libft.a -o $(NAME) -lreadline
 
 clean:
 		@$(RM) $(OBJ)
@@ -35,6 +31,8 @@ fclean:	clean
 		@make fclean -s -C libft
 		@make fclean -s -C ft_printf
 		@echo "apagou"
+
+so:	$(NAME) clean
 
 re:	fclean $(NAME)
 		@echo "makou outra vez"

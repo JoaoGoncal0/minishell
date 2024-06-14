@@ -6,109 +6,99 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/06 15:55:05 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/14 15:51:18 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*checkpath(char *cmd1, char **env)
+int	more(char *input, int i)
 {
-	int		i;
-	char	**paths;
-	char	*path;
-
-	i = 0;
-	while (env[i++])
-		if (ft_strnstr(env[i], "PATH=", 5))
-			break ;
-	paths = ft_split(&env[i][5], ':');
-	i = 0;
-	while (paths[i])
+	while (input[i])
 	{
-		path = ft_strjoin(paths[i], cmd1);
-		if (access(path, X_OK) == 0)
-			return (path);
-		free(path);
-		path = NULL;
+		if (ft_isprint(input[i]) == 1)
+			return (1);
 		i++;
 	}
-	i = 0;
-	while (paths[i])
-		free(paths[i++]);
-	free(paths);
-	return (path);
-}
-
-int		checkinput(t_vars *mini, char **env)
-{
-	mini->flagfd = 2;
-
-	if (ft_strchr(mini->input, '<') || ft_strchr(mini->input, '>'))
-		redirect(mini);
-	// if (ft_strchr(mini->input, '>>') || ft_strchr(mini->input, '<<'))
-	mini->flag = ft_split(mini->input, ' ');
-	mini->cmdt = ft_strjoin("/", mini->flag[0]);
-	mini->check = checkpath(mini->cmdt, env);
-	if (mini->check != NULL)
-		return (1);
 	return (0);
 }
 
-void	executecmd(t_vars *mini, char **env)
+int	checkbuiltin(t_vars *mini)
 {
-	mini->pid = fork();
-	if (mini->pid == 0)
+	remove_single_quote(mini->input);
+	remove_double_quote(mini->input);
+	if (!(ft_strncmp(mini->input, "env", 3)) && !(more(mini->input, 3)))
 	{
-		if (mini->flagfd == 0)
-		{
-			mini->fd[0] = open(mini->redrct, O_RDONLY);
-			if (mini->fd[0] == -1)
-			{
-				ft_printf("%s: No such file or directory", mini->redrct);
-				return ;
-			}
-			dup2(mini->fd[0], 0);
-		}
-		else if (mini->flagfd == 1)
-		{
-			mini->fd[1] = open(mini->redrct, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-			dup2(mini->fd[1], 1);
-		}
-		execve(mini->check, mini->flag, env);
+		env_builtin(mini);
+		return (0);
 	}
-	waitpid(mini->pid, NULL, 0);
+	else if (!(ft_strncmp(mini->input, "export", 6)) && !(more(mini->input, 6)))
+	{
+		init_export(mini);
+		export_builtin(mini);
+		return (0);
+	}
+	else if (ft_strncmp(mini->input, "echo\0", 5) == 0)
+	{
+		echo_builtin(mini);
+		return (0);
+	}
+	else if (!(ft_strncmp(mini->input, "exit", 4)))
+	{
+		exit_builtin(mini);
+		return (0);
+	}
+	else
+		return (1);
+}
+
+int	checkinput(t_vars *mini)
+{
+	mini->flagfd = 2;
+	allocfd(numpipe(mini->input), mini);
+	if (checkbuiltin(mini) == 0)
+		return (2);
+	if (numpipe(mini->input) > 0)
+	{
+		execute(mini, 0, numpipe(mini->input));
+		return (3);
+	}
+	if (fastcheckpath(mini, 0, 0) == 1)
+	{
+		execute(mini, 0, numpipe(mini->input));
+		free(mini->check);
+		return (4);
+	}
+	if (inputnum(mini->input) != -1)
+	{
+		checkpath(&mini->input[findcmdplace(mini->input, mini)], mini);
+		arrangegoodsplit(mini);
+		execute(mini, 0, numpipe(mini->input));
+		free(mini->check);
+		return (5);
+	}
+	ft_printf("%s: command not found\n", mini->flag[0]);
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
 	t_vars	mini;
 
+	(void)ac;
+	(void)av;
 	init_env(env, &mini);
-	init_export(&mini);
 	while (1)
 	{
 		mini.input = readline("a espera> ");
-		if (ft_strlen(mini.input) > 0)
+		if (ft_strlen(mini.input) > 0 && check_quotes(mini.input) == 0)
 		{
 			add_history(mini.input);
-			if (ft_strncmp(mini.input, "env\0", 4) == 0)
-                env_builtin(&mini);
-			else if (ft_strncmp(mini.input, "export\0", 7) == 0)
-                export_builtin(&mini);
-			else if (ft_strncmp(mini.input, "echo\0", 5) == 0)
-                echo_builtin(&mini);
-			else if (ft_strncmp(mini.input, "exit\0", 5) == 0)
-                exit_builtin(&mini);
-			else if (checkinput(&mini, env) != 0)
-				executecmd(&mini, env);
-			else
-				ft_printf("%s: command not found\n", mini.input);
+			checkinput(&mini);
 		}
 	}
 }
-
-// mini->flag faz split do input todo
-// suposto so fazer split do comando e das flags
+// dois redirects ao memo tempo
+// organizar o goodsplit com um swapstrings
+// cmds dependetes de input nao cnseguem com pipe
+// ver path absoluto aka ./minishell

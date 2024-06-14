@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/05/27 18:07:15 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:11:42 by elemesmo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_env(char **env, t_vars *mini)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (env[i])
 		i++;

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:11:29 by jomendes          #+#    #+#             */
-/*   Updated: 2024/06/03 11:38:40 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/06 23:11:46 by elemesmo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_split(char **str)
 {
@@ -50,8 +50,8 @@ void	exit_anyways(char **str)
 
 int	exit_builtin(t_vars *mini)
 {
-	char **str;
-	int	exit_status;
+	char	**str;
+	int		exit_status;
 
 	printf("exit\n");
 	if (ft_strchr(mini->input, ' '))
