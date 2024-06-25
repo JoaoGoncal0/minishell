@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/14 15:51:18 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:48:24 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	more(char *input, int i)
 
 int	checkbuiltin(t_vars *mini)
 {
-	remove_single_quote(mini->input);
-	remove_double_quote(mini->input);
 	if (!(ft_strncmp(mini->input, "env", 3)) && !(more(mini->input, 3)))
 	{
 		env_builtin(mini);
@@ -91,10 +89,15 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		mini.input = readline("a espera> ");
-		if (ft_strlen(mini.input) > 0 && check_quotes(mini.input) == 0)
+		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			checkinput(&mini);
+			printf("antes input %s\n", mini.input);
+			mini.input = quotescrazy(mini.input);
+			if (mini.input == NULL)
+				printf ("Quote error\n");
+			else
+				checkinput(&mini);
 		}
 	}
 }

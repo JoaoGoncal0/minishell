@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/14 15:43:43 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:08:02 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int		is_flag(char *str);
 int		check_quotes(char *input);
 void    remove_single_quote(char *cmd);
 void    remove_double_quote(char *cmd);
-int		quote_counter(char *cmd);
+char    *quotescrazy(char *input);
+void    quote_together(char *cmd);
 
 #endif
