@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/25 16:48:24 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/07/04 17:59:09 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	more(char *input, int i)
 
 int	checkbuiltin(t_vars *mini)
 {
-	if (!(ft_strncmp(mini->input, "env", 3)) && !(more(mini->input, 3)))
+	if (!(ft_strncmp(mini->input, "env\0", 4)) && !(more(mini->input, 3)))
 	{
 		env_builtin(mini);
 		return (0);
@@ -36,7 +36,7 @@ int	checkbuiltin(t_vars *mini)
 		export_builtin(mini);
 		return (0);
 	}
-	else if (ft_strncmp(mini->input, "echo\0", 5) == 0)
+	else if (ft_strncmp(mini->input, "echo", 4) == 0)
 	{
 		echo_builtin(mini);
 		return (0);
@@ -92,7 +92,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			printf("antes input %s\n", mini.input);
+			/*printf("antes input %s\n", mini.input);*/
 			mini.input = quotescrazy(mini.input);
 			if (mini.input == NULL)
 				printf ("Quote error\n");

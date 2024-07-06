@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/25 16:08:02 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/07/06 16:55:57 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,10 @@ int		exit_builtin(t_vars *mini);
 // builtin echo
 int		echo_builtin(t_vars *mini);
 int		is_flag(char *str);
+int		dollar_flag(char *str);
+void	echo_dollar_finish(char *str, t_vars *mini);
+int		echo_compare(const char *s1, const char *s2);
+char	*take_equal(char *str);
 
 //quotes.c 
 
