@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/06/06 23:11:42 by elemesmo         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:34:48 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_env(char **env, t_vars *mini)
 	i = 0;
 	while (env[i])
 		i++;
-	mini->env = malloc(sizeof(char *) * (i + 5));
+	mini->env = malloc(sizeof(char *) * (i + 1));
 	if (!mini->env)
 		return ;
 	mini->env_len = i;

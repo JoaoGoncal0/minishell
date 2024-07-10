@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/07/06 16:56:25 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:21:18 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,35 +68,52 @@ char *take_equal(char *str)
 	return (tmp);
 }
 
+
 void	echo_dollar_finish(char *str, t_vars *mini)
 {
 	int i;
 	char *result;
 	int j;
-	int u = 0;
+	int u;
+	char *env_var;
 
 	j = 0;
 	i = 0;
+	u = 0;
+	
 	result = ft_strdup(str + 1);
-	if (!result)
+	if (!str || !mini || !result)
 		return ;
-	if (mini->env[i])
+	if (!(result[i] >= 'A' && result[i] <= 'Z'))
 	{
-		while (ft_strncmp(result, mini->env[i], ft_strlen(result)) != 0)
-			i++;
-		if (ft_strncmp(result, mini->env[i], ft_strlen(result)) == 0 \
-		&& ft_strlen(result) == ft_strlen(take_equal(mini->env[i])))
+		free(result);
+		return ;
+	}
+	while (i < mini->env_len)
+	{
+		env_var = take_equal(mini->env[i]);
+		if (env_var && ft_strncmp(result, env_var, ft_strlen(result)) == 0)
 		{
-			str = mini->env[i];
-			while (str[j++] == result[u++])
-				;
-			while (str[j] != '\0')
-				printf("%c", str[j++]);
+			if (ft_strlen(result) == ft_strlen(env_var))
+			{
+				str = mini->env[i];
+				j = 0;
+				i = 0;
+			}
+			while (str[j] == result[u] && str[j] != '=' && result[u] != '\0')
+			{
+                j++;
+                u++;
+            }
+                if (result[u] == '\0') 
+                    printf("%s", &str[j+1]);
+                free(env_var);
+                break;
 		}
+		free(env_var);
 		i++;
 	}
-	else 
-		printf("\n");
+	free(result);
 }
 
 int	echo_builtin(t_vars *mini)
@@ -113,8 +130,13 @@ int	echo_builtin(t_vars *mini)
 		while (split && is_flag(split[++i]))
 			new_line = 0;
 	}
-	if (dollar_flag(split[1]) == 0)
-		echo_dollar_finish(split[1], mini);
+	while (split[i] && dollar_flag(split[i]) == 0)
+	{
+		echo_dollar_finish(split[i], mini);
+		if (split[i + 1])
+			printf(" ");
+		i++;
+	}
 	while (split[i] && dollar_flag(split[i]) != 0)
 	{
 		printf("%s", split[i]);
