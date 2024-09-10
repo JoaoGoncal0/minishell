@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/07/10 16:21:18 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:57:32 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,22 @@ int	dollar_flag(char *str)
 	return (1);
 }
 
+int	dollar_flag_count(char *str)
+{
+	int i;
+	int counter;
+
+	i = 0;
+	counter = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+			counter++;
+		i++;
+	}
+	return (counter);
+}
+
 char *take_equal(char *str)
 {
 	int i;
@@ -69,7 +85,7 @@ char *take_equal(char *str)
 }
 
 
-void	echo_dollar_finish(char *str, t_vars *mini)
+void	echo_dollar_finish(char *str, int k, t_vars *mini)
 {
 	int i;
 	char *result;
@@ -80,8 +96,9 @@ void	echo_dollar_finish(char *str, t_vars *mini)
 	j = 0;
 	i = 0;
 	u = 0;
-	
-	result = ft_strdup(str + 1);
+	//printf("a str = %s\n", str);
+	result = ft_strdup(str + k);
+	//printf("o result = %s\n", result);
 	if (!str || !mini || !result)
 		return ;
 	if (!(result[i] >= 'A' && result[i] <= 'Z'))
@@ -116,13 +133,18 @@ void	echo_dollar_finish(char *str, t_vars *mini)
 	free(result);
 }
 
+
+
 int	echo_builtin(t_vars *mini)
 {
 	int		i;
 	char	**split;
 	int		new_line;
+	char	**last_split;
+	int		j;
 	
 	i = 0;
+	j = 0;
 	new_line = 1;
 	split = ft_split(mini->input, ' ');
 	if (ft_strchr(mini->input, ' '))
@@ -132,7 +154,13 @@ int	echo_builtin(t_vars *mini)
 	}
 	while (split[i] && dollar_flag(split[i]) == 0)
 	{
-		echo_dollar_finish(split[i], mini);
+		last_split = ft_split(split[i], '$');
+		echo_dollar_finish(split[i], 1, mini);
+		if (dollar_flag_count(split[i]) > 1)
+		{
+			while (last_split[j])
+				echo_dollar_finish(last_split[j++], 0, mini);
+		}
 		if (split[i + 1])
 			printf(" ");
 		i++;
