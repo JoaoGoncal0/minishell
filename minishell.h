@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/10 16:22:56 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:26:59 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int		dollar_flag(char *str);
 void	echo_dollar_finish(char *str, int k, t_vars *mini);
 int		echo_compare(const char *s1, const char *s2);
 char	*take_equal(char *str);
+void	dollar_quote(t_vars *mini, char *str);
 
 //quotes.c 
 
@@ -100,5 +101,8 @@ void    remove_single_quote(char *cmd);
 void    remove_double_quote(char *cmd);
 char    *quotescrazy(char *input);
 void    quote_together(char *cmd);
+
+//builtin unset
+int		unset_builtin(t_vars *mini);
 
 #endif

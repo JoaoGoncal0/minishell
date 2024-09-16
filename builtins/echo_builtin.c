@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/10 16:57:32 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:54:17 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,19 @@ int	is_flag(char *str)
 int	dollar_flag(char *str)
 {
 	int i;
+	int n;
 
 	i = 0;
+	n = 0;
+	// printf("STR = %s\n", str);
 	while (str[i])
 	{
-		if (str[i] == '$')
+		if (str[i] == '\'')
+		{
+			i++;
+			n = 1;
+		}
+		if (n == 0 && str[i] == '$')
 			return (0);
 		i++;
 	}
@@ -96,9 +104,9 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini)
 	j = 0;
 	i = 0;
 	u = 0;
-	//printf("a str = %s\n", str);
+	// printf("a str = %s\n", str);
 	result = ft_strdup(str + k);
-	//printf("o result = %s\n", result);
+	// printf("o result = %s\n", result);
 	if (!str || !mini || !result)
 		return ;
 	if (!(result[i] >= 'A' && result[i] <= 'Z'))
@@ -122,18 +130,16 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini)
                 j++;
                 u++;
             }
-                if (result[u] == '\0') 
-                    printf("%s", &str[j+1]);
-                free(env_var);
-                break;
+            if (result[u] == '\0') 
+                printf("%s", &str[j+1]);
+            free(env_var);
+            break;
 		}
 		free(env_var);
 		i++;
 	}
 	free(result);
 }
-
-
 
 int	echo_builtin(t_vars *mini)
 {
@@ -146,7 +152,11 @@ int	echo_builtin(t_vars *mini)
 	i = 0;
 	j = 0;
 	new_line = 1;
+	
 	split = ft_split(mini->input, ' ');
+	// printf("split = %s\n", split[i]);
+	if (!split[i + 1])
+		return (printf("\n"), 1);
 	if (ft_strchr(mini->input, ' '))
 	{
 		while (split && is_flag(split[++i]))
@@ -167,6 +177,7 @@ int	echo_builtin(t_vars *mini)
 	}
 	while (split[i] && dollar_flag(split[i]) != 0)
 	{
+		remove_single_quote(split[i]);
 		printf("%s", split[i]);
 		if (split[i + 1])
 			printf(" ");
@@ -176,3 +187,4 @@ int	echo_builtin(t_vars *mini)
 		printf("\n");
 	return (0);
 }
+

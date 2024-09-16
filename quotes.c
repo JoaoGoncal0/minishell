@@ -136,17 +136,19 @@ char    *quotescrazy(char *input)
 {
     int     i;
     char    q;
-    char    nq;
+    char	nq;
     int     pq;
 
     i = 0;
     nq = 0;
+	// printf("string = %s\n", input);
     while (input[i])
     {
+		if (ft_strncmp(input, "echo '", 6) == 0)
+			return (input);
         if (input[i] == '\'' || input[i] == '"')
         {
             q = input[i];
-            printf("%c\n" , q);
             pq = i;
             i++;
             nq = 1;

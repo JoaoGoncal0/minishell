@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/07/04 17:59:09 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/13 15:28:02 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ int	checkbuiltin(t_vars *mini)
 	else if (ft_strncmp(mini->input, "echo", 4) == 0)
 	{
 		echo_builtin(mini);
+		return (0);
+	}
+	else if (ft_strncmp(mini->input, "unset", 5) == 0)
+	{
+		unset_builtin(mini);
 		return (0);
 	}
 	else if (!(ft_strncmp(mini->input, "exit", 4)))
@@ -92,8 +97,8 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			/*printf("antes input %s\n", mini.input);*/
 			mini.input = quotescrazy(mini.input);
+			// printf("depois input %s\n", mini.input);
 			if (mini.input == NULL)
 				printf ("Quote error\n");
 			else
