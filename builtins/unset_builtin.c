@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/17 21:58:19 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:03:07 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_var(t_vars *mini, char *var)
 		{
 			printf("mini = %s\n", mini->env[i]);
 			str = ft_strdup(mini->env[i]);
-			printf("str = %s\n", str);
+			printf("STR IGUAL = %s\n", str);
 		}
 		i++;
 			// while (str[j] == var[u] && str[j] != '=' && var[u] != '\0')
@@ -52,7 +52,7 @@ int	unset_builtin(t_vars *mini)
 	split = ft_split(mini->input, ' ');
 	printf("split = %s\n", split[i]);
 	str = get_var(mini, split[i]);
-	printf("str1 = %s\n", str);
+	printf("str11111 = %s\n", str);
 	env_update(mini, str);
 	return (0);
 }
@@ -61,3 +61,8 @@ int	unset_builtin(t_vars *mini)
 // depois com o que vier do echo dollar finish
 // atualizar o valor do env com o strdup de todas as strings menos aquela ou aquelas
 //  que damos unset
+
+// int	add_env(char ***env, char *add)
+// {
+// 	char **new env;
+// }

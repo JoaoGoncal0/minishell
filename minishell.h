@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/17 21:58:02 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:38:22 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_vars
 	char	*input;
 	// builtins
 	char	**env;
+	char	**new_env;
 	char	**export;
 	int		env_len;
 	// paths
