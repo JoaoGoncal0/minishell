@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/18 14:38:22 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:41:46 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	veryexecute(t_vars *mini, int i);
 
 // builtin env
 void	init_env(char **env, t_vars *mini);
-int		env_builtin(t_vars *mini);
+void	env_builtin(t_vars *mini);
 void	env_update(t_vars *mini, char *str);
 
 // builtin export

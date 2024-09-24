@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/22 01:38:15 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:04:16 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	env_update1(t_vars *mini)
 {
 	int i;
-	int len;
+	//int len;
 	int j;
 	
 	i = 0;
@@ -23,15 +23,16 @@ void	env_update1(t_vars *mini)
 	while (i < mini->env_len && mini->env[i] != NULL)
 		free(mini->env[i++]);	
 	i = 0;
-	while (mini->new_env[i])
-		i++;
-	len = i;
-	mini->env = realloc(mini->env, sizeof(char *) * (len + 1));
+	//while (mini->new_env[i])
+	//	i++;
+	//len = i;
+	mini->env = realloc(mini->env, sizeof(char *) * (22));
 	if (!mini->env)
 		return;
-	while (j < len)
+	while (j < mini->env_len)
 	{
-		mini->env[j] = ft_strdup(mini->new_env[j]);
+		if (mini->new_env[j])
+			mini->env[j] = ft_strdup(mini->new_env[j]);
 		j++;
 	}
 	mini->env[j] = NULL;
@@ -91,12 +92,21 @@ void	init_env(char **env, t_vars *mini)
 	mini->env[i] = NULL;
 }
 
-int	env_builtin(t_vars *mini)
+void	env_builtin(t_vars *mini)
 {
 	int	i;
 
-	i = -1;
-	while (++i < mini->env_len)
-		printf("%s\n", mini->env[i]);
-	return (0);
+	i = 0;
+	printf("len = %d\n", mini->env_len);
+	while (i < mini->env_len)
+	{
+		if (!mini->env[i])
+			i++;
+		if (mini->env[i])
+		{
+			//printf("o %s existe em %p\n\n",mini->env[i], mini->env[i]);
+			printf("%s\n", mini->env[i]);
+			i++;
+		}
+	}
 }
