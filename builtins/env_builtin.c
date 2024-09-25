@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/24 23:49:37 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:01:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	env_update1(t_vars *mini)
 	int i;
 	int j;
 	char **temp;
-	int x = 0;
 
 	i = 0;
 	j = 0;
@@ -30,8 +29,6 @@ void	env_update1(t_vars *mini)
 		}
 		i++;
 	}
-	while (x < mini->env_len)
-		printf("\n\nesta vazio %s\n", mini->new_env[x++]);
 	i = 0;
 	temp = realloc(mini->env, sizeof(char *) * (mini->env_len));
 	if (!temp)
@@ -46,41 +43,60 @@ void	env_update1(t_vars *mini)
 		j++;
 	}
 	mini->env[j] = NULL;
-	printf("\n\n----- UPDATED ENV ------\n\n\n");
-	j = -1;
-	while (++j < mini->env_len)
-	{
-		if (!mini->new_env[j])
-			continue;
-		printf("%s\n", mini->new_env[j]);
-	}
+	//printf("\n\n----- UPDATED ENV ------\n\n\n");
+	//j = -1;
+	//while (++j < mini->env_len)
+	//{
+	//	if (!mini->new_env[j])
+	//		continue;
+	//	printf("%s\n", mini->new_env[j]);
+	//}
 }
 
 void	env_update(t_vars *mini, char *str)
 {
 	int	i;
+	int j;
+	int k;
 
 	i = 0;
+	k = 0;
+	while (k < mini->env_len)
+	{
+		if (mini->new_env[k])
+		{
+			free(mini->new_env[k]);
+			mini->new_env[k] = NULL;
+		}
+		k++;
+	}	
 	while (i < mini->env_len)
 	{
-		if (mini->env[i] && 
-		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0)
+		if ((mini->env[i] && 
+		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0) ||
+		!mini->env[i])
 		{
-			printf("\nentrouu\n");
+			printf("valor do iiiii = %d\n", i);
 			i++;
 			continue;
 		}
-		if (!mini->env[i])
-			i++;
 		if (mini->env[i])
 		{
-			printf("\naquiiii\n");
+			printf("valor do i = %d\n", i);
 			mini->new_env[i] = ft_strdup(mini->env[i]);
 			printf("mini->new_env = %s\n", mini->env[i]);
 			i++;
 		}
 	}
 	mini->new_env[i] = NULL;
+	printf("\n\n----- UPDATED ENV ------\n\n\n");
+	j = -1;
+	while (++j < mini->env_len)
+	{
+		while (!mini->new_env[j])
+			j++;
+		printf("%s\n", mini->new_env[j]);
+	}
 	env_update1(mini);
 }
 		

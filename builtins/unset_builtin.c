@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/24 23:44:47 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:58:26 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ char	*get_var(t_vars *mini, char *var)
 	while (i < mini->env_len)
 	{
 		if (!mini->env[i])
+		{
 			i++;
+			continue;
+		}
+			
 		if (ft_strncmp(mini->env[i], var, ft_strlen(var)) == 0 &&
 		mini->env[i][ft_strlen(var)] == '=')
 		{
