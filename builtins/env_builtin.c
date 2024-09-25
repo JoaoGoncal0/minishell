@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/23 19:04:16 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/24 23:49:37 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,34 @@
 void	env_update1(t_vars *mini)
 {
 	int i;
-	//int len;
 	int j;
-	
+	char **temp;
+	int x = 0;
+
 	i = 0;
 	j = 0;
-	while (i < mini->env_len && mini->env[i] != NULL)
-		free(mini->env[i++]);	
+	while (i < mini->env_len)
+	{
+		if (mini->env[i])
+		{
+			free(mini->env[i]);
+			mini->env[i] = NULL;
+		}
+		i++;
+	}
+	while (x < mini->env_len)
+		printf("\n\nesta vazio %s\n", mini->new_env[x++]);
 	i = 0;
-	//while (mini->new_env[i])
-	//	i++;
-	//len = i;
-	mini->env = realloc(mini->env, sizeof(char *) * (22));
-	if (!mini->env)
+	temp = realloc(mini->env, sizeof(char *) * (mini->env_len));
+	if (!temp)
 		return;
+	mini->env = temp;
 	while (j < mini->env_len)
 	{
 		if (mini->new_env[j])
 			mini->env[j] = ft_strdup(mini->new_env[j]);
+		else
+			mini->env[j] = NULL;
 		j++;
 	}
 	mini->env[j] = NULL;
@@ -41,7 +51,7 @@ void	env_update1(t_vars *mini)
 	while (++j < mini->env_len)
 	{
 		if (!mini->new_env[j])
-			j++;
+			continue;
 		printf("%s\n", mini->new_env[j]);
 	}
 }
@@ -56,13 +66,17 @@ void	env_update(t_vars *mini, char *str)
 		if (mini->env[i] && 
 		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0)
 		{
-				i++;
-				continue;
+			printf("\nentrouu\n");
+			i++;
+			continue;
 		}
+		if (!mini->env[i])
+			i++;
 		if (mini->env[i])
 		{
+			printf("\naquiiii\n");
 			mini->new_env[i] = ft_strdup(mini->env[i]);
-			printf("mini->env = %s\n", mini->env[i]);
+			printf("mini->new_env = %s\n", mini->env[i]);
 			i++;
 		}
 	}

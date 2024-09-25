@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/22 01:45:15 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/24 23:44:47 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 char	*get_var(t_vars *mini, char *var)
 {
 	int i;
-	//char *str;
 
 	i = 0;
-	//str = NULL;
+	if (!var || !mini || !mini->env)
+		return (NULL);
 	while (i < mini->env_len)
 	{
-		printf("var = %s\n", var);
+		if (!mini->env[i])
+			i++;
 		if (ft_strncmp(mini->env[i], var, ft_strlen(var)) == 0 &&
 		mini->env[i][ft_strlen(var)] == '=')
 		{
 			printf("mini = %s\n", mini->env[i]);
 			return (mini->env[i]);
-			//str = ft_strdup(mini->env[i]);
 		}
 		i++;
 	}

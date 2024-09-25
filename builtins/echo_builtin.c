@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/16 14:54:17 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/24 23:41:02 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini)
 	j = 0;
 	i = 0;
 	u = 0;
-	// printf("a str = %s\n", str);
+	//printf("a str = %s\n", str);
 	result = ft_strdup(str + k);
 	// printf("o result = %s\n", result);
 	if (!str || !mini || !result)
@@ -114,7 +114,7 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini)
 		free(result);
 		return ;
 	}
-	while (i < mini->env_len)
+	while (i < mini->env_len && mini->env[i])
 	{
 		env_var = take_equal(mini->env[i]);
 		if (env_var && ft_strncmp(result, env_var, ft_strlen(result)) == 0)
