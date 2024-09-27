@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/24 23:41:02 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:46:16 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	is_flag(char *str)
 	int	i;
 
 	i = 0;
+	if (!str || !str[i])
+		return (1);
 	while (str[i])
 	{
 		if (str[i] == '-')
@@ -45,7 +47,6 @@ int	dollar_flag(char *str)
 
 	i = 0;
 	n = 0;
-	// printf("STR = %s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'')
@@ -152,14 +153,12 @@ int	echo_builtin(t_vars *mini)
 	i = 0;
 	j = 0;
 	new_line = 1;
-	
 	split = ft_split(mini->input, ' ');
-	// printf("split = %s\n", split[i]);
-	if (!split[i + 1])
-		return (printf("\n"), 1);
-	if (ft_strchr(mini->input, ' '))
+	//if (!split[i + 1])
+	//	return (printf("\n"), 1);
+	if (split[i] && ft_strchr(mini->input, ' '))
 	{
-		while (split && is_flag(split[++i]))
+		while (split[i] && is_flag(split[++i]))
 			new_line = 0;
 	}
 	while (split[i] && dollar_flag(split[i]) == 0)

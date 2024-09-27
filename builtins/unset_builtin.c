@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/25 14:58:26 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:23:29 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,23 @@ int	unset_builtin(t_vars *mini)
 		return (1);
 	}
 	printf("split = %s\n", split[i]);
-	str = get_var(mini, split[i]);
-	if (!str)
+	//str = get_var(mini, split[i]);
+	//if (!str)
+	//{
+	//	printf("Variable not found.\n");
+	//	return (1);
+	//}
+	while (split[i])
 	{
-		printf("Variable not found.\n");
-		return (1);
+		str = get_var(mini, split[i]);
+		if (!str)
+		{
+			printf("Variable not found.\n");
+			return (1);
+		}
+		env_update(mini, str);
+		i++;
 	}
-	printf("str11111 = %s\n", str);
-	env_update(mini, str);
 	return (0);
 }
 
