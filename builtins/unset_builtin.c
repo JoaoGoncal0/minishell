@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/26 15:23:29 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:22:55 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	unset_builtin(t_vars *mini)
 		printf("No variable to unset.\n");
 		return (1);
 	}
-	printf("split = %s\n", split[i]);
+	// printf("split = %s\n", split[i]);
 	//str = get_var(mini, split[i]);
 	//if (!str)
 	//{
@@ -73,13 +73,3 @@ int	unset_builtin(t_vars *mini)
 	}
 	return (0);
 }
-
-// dois string joins para juntar o PATH (split[1]) com "=" e 
-// depois com o que vier do echo dollar finish
-// atualizar o valor do env com o strdup de todas as strings menos aquela ou aquelas
-//  que damos unset
-
-// int	add_env(char ***env, char *add)
-// {
-// 	char **new env;
-// }

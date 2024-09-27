@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executecmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:08:32 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/06/12 01:20:35 by elemesmo         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:16:55 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void	executeone(t_vars *mini)
 			indicateredi(mini->flagfd, mini->fd, mini->redrct);
 		else
 			dup2(mini->fd[1], 1);
+		// printf("comando %s\n", mini->trueflag[0]);
+		// printf("mini check %s\n", mini->check);
 		if (execve(mini->check, mini->trueflag, mini->env) == -1)
 			ft_printf("aiai/%s: command not found\n", mini->trueflag[0]);
 		exit(1);
