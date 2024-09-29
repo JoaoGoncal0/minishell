@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/28 22:14:52 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/29 12:23:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,30 @@ void    export_var(t_vars *mini)
 {
     int     i;
     char    **split;
-    //int     len;
 
     i = 1;
     split = ft_split(mini->input, ' ');
     while (split[i]) 
     {
+		mini->exp_len = export_len(mini->export) + 1;
+		printf("valor do len = %d\n", mini->exp_len);
         if (export_check(split[i]) == 0)
         {
-            export_update(mini, split[i]);   
+			if (!mini->new_export)
+            {
+               	mini->new_export = malloc(sizeof(char *) * (mini->exp_len + 1));
+                if (!mini->new_export)
+                    return;
+                mini->new_export[mini->exp_len] = NULL;
+            }
+			export_update(mini, split[i]); 
+		}
+        i++;
             //len = export_lenght(mini);
             // printf("split = %s\n", split[i]);
             //printf("mini->export[len + 1] antes = %s\n", mini->export[len + 1]);
             //mini->export[len + 1] = ft_strdup(split[i]);
             //printf("mini->export[len + 1] depois = %s\n", mini->export[len + 1]);
-        }
-        i++;
     }
     sorting_export(mini);
 }
@@ -63,34 +71,38 @@ void	export_update(t_vars *mini, char *str)
 {
 	int	i;
 	int k;
-    int len;
     int done;
     
 	i = 0;
 	k = 0;
     done = 0;
-    len = export_len(mini->export);
-    printf("valor do len %d\n", len);
-	while (k < len)
+	if (!mini->new_export)
+    {
+        printf("Error: mini->new_export not initialized.\n");
+        return;
+	}
+	while (k < mini->exp_len)
 	{
-		if (mini->new_export[k])
+		if (mini->new_export[k] != NULL)
 		{
+			printf("%s\n", mini->new_export[k]);
 			free(mini->new_export[k]);
 			mini->new_export[k] = NULL;
 		}
 		k++;
 	}
-	while (i < len)
+	while (i < mini->exp_len)
 	{
         //if (ft_strncmp(mini->export[i], str, ft_strlen(str) == 0))
         //    i++;
-		if (!mini->export[i + 1] && done == 0)
+		if (!mini->export[i] && done == 0)
 		{
             done = 1;
             mini->new_export[i] = ft_strdup(str);
+			printf("Inserido em new_export[%d]: %s\n", i, mini->new_export[i]);
 			i++;
 		}
-		if (mini->export[i])
+		else if (mini->export[i])
 		{
 			mini->new_export[i] = ft_strdup(mini->export[i]);
 			i++;
@@ -116,7 +128,6 @@ void	export_update1(t_vars *mini)
 	s = -1;
 	while (++s < len)
 		printf("declare -x: %s\n", mini->new_export[s]);
-    printf("declare -x: %s\n", mini->new_export[s + 1]);
 	while (i < len)
 	{
 		if (mini->export[i])
@@ -133,14 +144,9 @@ void	export_update1(t_vars *mini)
 	mini->export = temp;
 	while (j < len)
 	{
-		if (mini->new_export[j])
-        {
-            printf("mini->new_export = %s\n", mini->new_export[j]);
-            mini->export[j] = ft_strdup(mini->new_export[j]);
-        }
-		else
-			mini->export[j] = NULL;
+        printf("mini->new_export = %s\n", mini->new_export[j]);
+        mini->export[j] = ft_strdup(mini->new_export[j]);
 		j++;
-	}
+    }
 	mini->export[j] = NULL;
 }
