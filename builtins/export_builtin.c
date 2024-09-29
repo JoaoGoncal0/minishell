@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/27 16:02:27 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/28 22:02:24 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	init_export(t_vars *mini)
 {
 	int	i;
-	int j;
 
 	i = 0;
 	mini->export = malloc(sizeof(char *) * (mini->env_len + 1));
-	if (!mini->export)
+	mini->new_export = malloc(sizeof(char *) * (mini->env_len + 10));
+	if (!mini->export || !mini->new_export)
 		return ;
 	while (i < mini->env_len)
 	{
@@ -35,9 +35,6 @@ void	init_export(t_vars *mini)
 		}
 	}
 	mini->export[i] = NULL;
-	j = -1;
-	while (++j < mini->env_len)
-		printf("export = %s\n", mini->export[j]);
 	sorting_export(mini);
 }
 
@@ -46,8 +43,13 @@ int	export_builtin(t_vars *mini)
 	int	i;
 
 	i = -1;
-	while (++i < mini->env_len)
+	if (ft_strchr(mini->input, ' '))
+		export_var(mini);
+	else
+	{
+		while (++i < mini->env_len)
 		printf("declare -x %s\n", mini->export[i]);
+	}
 	return (0);
 }
 
@@ -60,19 +62,31 @@ void	swap_strings(char **a, char **b)
 	*b = tmp;
 }
 
+int		export_len(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 void	sorting_export(t_vars *mini)
 {
 	int	i;
 	int	swapped;
+	int	len;
 
-	if (mini->env_len < 2)
+	len = export_len(mini->export);
+	if (len < 2)
 		return ;
 	swapped = 1;
 	while (swapped)
 	{
 		swapped = 0;
 		i = 0;
-		while (i < mini->env_len - 1 && 
+		while (i < len && 
 		mini->export[i] && mini->export[i + 1])
 		{
 			if (ft_strncmp(mini->export[i], \

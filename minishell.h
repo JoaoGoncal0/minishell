@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/23 15:41:46 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:55:12 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_vars
 	char	**env;
 	char	**new_env;
 	char	**export;
+	char	**new_export;
+	int		exp_len;
 	int		env_len;
 	// paths
 	char	**flag;
@@ -81,6 +83,11 @@ int		export_builtin(t_vars *mini);
 void	swap_strings(char **a, char **b);
 void	sorting_export(t_vars *mini);
 void	free_split(char **str);
+int		export_len(char **str);
+int     export_check(char *str);
+void    export_var(t_vars *mini);
+void	export_update1(t_vars *mini);
+void	export_update(t_vars *mini, char *str);
 
 // builtin exit
 int		not_number(char *str);

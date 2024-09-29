@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/18 13:36:46 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/28 18:01:26 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	checkbuiltin(t_vars *mini)
 		env_builtin(mini);
 		return (0);
 	}
-	else if (!(ft_strncmp(mini->input, "export", 6)) && !(more(mini->input, 6)))
+	else if ((ft_strncmp(mini->input, "export", 6) == 0))
 	{
 		init_export(mini);
 		export_builtin(mini);
