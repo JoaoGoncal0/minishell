@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 12:17:33 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/26 18:46:16 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:58:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini)
 	}
 	while (i < mini->env_len && mini->env[i])
 	{
-		env_var = take_equal(mini->env[i]);
+		env_var = take_equal(mini->export[i]);
 		if (env_var && ft_strncmp(result, env_var, ft_strlen(result)) == 0)
 		{
 			if (ft_strlen(result) == ft_strlen(env_var))
@@ -154,8 +154,6 @@ int	echo_builtin(t_vars *mini)
 	j = 0;
 	new_line = 1;
 	split = ft_split(mini->input, ' ');
-	//if (!split[i + 1])
-	//	return (printf("\n"), 1);
 	if (split[i] && ft_strchr(mini->input, ' '))
 	{
 		while (split[i] && is_flag(split[++i]))

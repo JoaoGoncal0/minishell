@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/30 19:10:36 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:56:13 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,19 @@ int     export_check(char *str)
     i = 0;
     while (str[i])
     {
-        if (!((str[i] >= 'a' && str[i] <= 'z') || 
-        (str[i] >= 'A' && str[i] <= 'Z') || (str[i] == '_')))
-        {
-            printf("export: `%c': not a valid identifier\n", str[i]);
-            return (1);
-        }
+		if (str[0] == '=')
+		{
+			printf("export: `%c': not a valid identifier\n", str[i]);
+    		return (1);
+		}
+        if ((str[i] >= 'a' && str[i] <= 'z') || 
+        (str[i] >= 'A' && str[i] <= 'Z') || (str[i] == '_') ||
+		str[i] == '=')
+            return (0);
         i++;
     }
-    return (0);
+	printf("export: `%c': not a valid identifier\n", str[i]);
+    return (1);
 }
 
 void    export_var(t_vars *mini)

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/30 19:15:40 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:59:10 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_export(t_vars *mini)
 		}
 	}
 	mini->export[i] = NULL;
+	mini->exp_len = export_len(mini->export);
 	//sorting_export(mini);
 }
 
