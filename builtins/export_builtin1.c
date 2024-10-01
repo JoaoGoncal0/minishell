@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/29 12:23:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:10:36 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,19 @@ void    export_var(t_vars *mini)
 
     i = 1;
     split = ft_split(mini->input, ' ');
+	mini->new_export = malloc(sizeof(char *) * (mini->exp_len + 10));
+	if (!mini->new_export)
+		return;
     while (split[i]) 
     {
 		mini->exp_len = export_len(mini->export) + 1;
-		printf("valor do len = %d\n", mini->exp_len);
+		printf("\nsplit = %s\n", split[i]);
         if (export_check(split[i]) == 0)
         {
-			if (!mini->new_export)
-            {
-               	mini->new_export = malloc(sizeof(char *) * (mini->exp_len + 1));
-                if (!mini->new_export)
-                    return;
-                mini->new_export[mini->exp_len] = NULL;
-            }
-			export_update(mini, split[i]); 
+			export_update(mini, split[i]);
+			i++;
 		}
-        i++;
-            //len = export_lenght(mini);
-            // printf("split = %s\n", split[i]);
-            //printf("mini->export[len + 1] antes = %s\n", mini->export[len + 1]);
-            //mini->export[len + 1] = ft_strdup(split[i]);
-            //printf("mini->export[len + 1] depois = %s\n", mini->export[len + 1]);
     }
-    sorting_export(mini);
 }
 
 void	export_update(t_vars *mini, char *str)
@@ -83,9 +73,8 @@ void	export_update(t_vars *mini, char *str)
 	}
 	while (k < mini->exp_len)
 	{
-		if (mini->new_export[k] != NULL)
+		if (mini->new_export[k])
 		{
-			printf("%s\n", mini->new_export[k]);
 			free(mini->new_export[k]);
 			mini->new_export[k] = NULL;
 		}
@@ -93,8 +82,6 @@ void	export_update(t_vars *mini, char *str)
 	}
 	while (i < mini->exp_len)
 	{
-        //if (ft_strncmp(mini->export[i], str, ft_strlen(str) == 0))
-        //    i++;
 		if (!mini->export[i] && done == 0)
 		{
             done = 1;
@@ -106,7 +93,7 @@ void	export_update(t_vars *mini, char *str)
 		{
 			mini->new_export[i] = ft_strdup(mini->export[i]);
 			i++;
-		}    
+		}
 	}
 	mini->new_export[i] = NULL;
 	export_update1(mini);
@@ -118,17 +105,12 @@ void	export_update1(t_vars *mini)
 	int j;
 	char **temp;
     int s;
-    int len;
 
 	i = 0;
 	j = 0;
-    len = export_len(mini->new_export);
-    printf("valor do lennnnn %d\n", len);
-    printf("\n\n----- UPDATED EXPORT ------\n\n\n");
-	s = -1;
-	while (++s < len)
-		printf("declare -x: %s\n", mini->new_export[s]);
-	while (i < len)
+    //mini->exp_len = export_len(mini->new_export);
+    printf("valor do lennnnn %d\n", mini->exp_len);
+	while (i < mini->exp_len)
 	{
 		if (mini->export[i])
 		{
@@ -137,16 +119,25 @@ void	export_update1(t_vars *mini)
 		}
 		i++;
 	}
+	printf("\n\n----- NULL EXPORT ------\n\n\n");
+	s = -1;
+	while (++s < mini->exp_len)
+		printf("declare -x: %s\n", mini->export[s]);
 	i = 0;
-	temp = realloc(mini->export, sizeof(char *) * (len + 1));
+	printf("\n\n\nvalor do exp_len = %d\n\n\n", mini->exp_len);
+	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len + 1));
 	if (!temp)
 		return;
 	mini->export = temp;
-	while (j < len)
+	while (j < mini->exp_len)
 	{
-        printf("mini->new_export = %s\n", mini->new_export[j]);
         mini->export[j] = ft_strdup(mini->new_export[j]);
 		j++;
     }
 	mini->export[j] = NULL;
+	sorting_export(mini);
+	printf("\n\n----- UPDATED EXPORT ------\n\n\n");
+	s = -1;
+	while (++s < mini->exp_len)
+		printf("fake -x %s\n", mini->export[s]);
 }

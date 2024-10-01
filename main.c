@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/28 18:01:26 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:15:13 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	checkbuiltin(t_vars *mini)
 	}
 	else if ((ft_strncmp(mini->input, "export", 6) == 0))
 	{
-		init_export(mini);
 		export_builtin(mini);
 		return (0);
 	}
@@ -91,6 +90,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	init_env(env, &mini);
+	init_export(&mini);
 	while (1)
 	{
 		mini.input = readline("a espera> ");
