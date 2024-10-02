@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/28 21:55:12 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:46:08 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int     export_check(char *str);
 void    export_var(t_vars *mini);
 void	export_update1(t_vars *mini);
 void	export_update(t_vars *mini, char *str);
+void	exp_update1(t_vars *mini);
+void	exp_update(t_vars *mini, char *str);
 
 // builtin exit
 int		not_number(char *str);

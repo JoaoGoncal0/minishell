@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/30 21:56:13 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:51:03 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,4 +144,91 @@ void	export_update1(t_vars *mini)
 	s = -1;
 	while (++s < mini->exp_len)
 		printf("fake -x %s\n", mini->export[s]);
+}
+
+void	exp_update1(t_vars *mini)
+{
+	int i;
+	int j;
+	char **temp;
+
+	i = 0;
+	j = 0;
+	while (i < mini->exp_len)
+	{
+		if (mini->export[i])
+		{
+			free(mini->export[i]);
+			mini->export[i] = NULL;
+		}
+		i++;
+	}
+	i = 0;
+	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len));
+	if (!temp)
+		return;
+	mini->export = temp;
+	while (j < mini->exp_len)
+	{
+		if (mini->new_export[j])
+			mini->export[j] = ft_strdup(mini->new_export[j]);
+		else
+			mini->export[j] = NULL;
+		j++;
+	}
+	mini->export[j] = NULL;
+	//printf("\n\n----- UPDATED ENV ------\n\n\n");
+	//j = -1;
+	//while (++j < mini->env_len)
+	//{
+	//	if (!mini->new_env[j])
+	//		continue;
+	//	printf("%s\n", mini->new_env[j]);
+	//}
+}
+
+void	exp_update(t_vars *mini, char *str)
+{
+	int	i;
+	int j;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (k < mini->exp_len)
+	{
+		if (mini->new_export[k])
+		{
+			free(mini->new_export[k]);
+			mini->new_export[k] = NULL;
+		}
+		k++;
+	}	
+	while (i < mini->exp_len)
+	{
+		if ((mini->export[i] && 
+		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0) ||
+		!mini->export[i])
+		{
+			printf("valor do iiiii = %d\n", i);
+			i++;
+			continue;
+		}
+		if (mini->export[i])
+		{
+			printf("valor do i = %d\n", i);
+			mini->new_export[i] = ft_strdup(mini->export[i]);
+			printf("mini->new_export = %s\n", mini->export[i]);
+			i++;
+		}
+	}
+	mini->new_export[i] = NULL;
+	printf("\n\n----- UPDATED export ------\n\n\n");
+	j = -1;
+	while (++j < mini->exp_len)
+	{
+		while (!mini->new_export[j])
+			j++;
+	}
+	exp_update1(mini);
 }

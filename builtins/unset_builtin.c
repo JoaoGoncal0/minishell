@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/28 18:19:19 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:44:37 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ char	*get_var(t_vars *mini, char *var)
 	int i;
 
 	i = 0;
-	if (!var || !mini || !mini->env)
+	printf("var= %s\n", var);
+	if (!var || !mini || !mini->export || !mini->env)
 		return (NULL);
-	while (i < mini->env_len)
+	while (i < mini->exp_len)
 	{
-		if (!mini->env[i])
+		if (!mini->export[i])
 		{
 			i++;
 			continue;
 		}
-			
-		if (ft_strncmp(mini->env[i], var, ft_strlen(var)) == 0 &&
-		mini->env[i][ft_strlen(var)] == '=')
+		if (ft_strncmp(mini->export[i], var, ft_strlen(var)) == 0 &&
+		mini->export[i][ft_strlen(var)] == '=')
 		{
-			printf("mini = %s\n", mini->env[i]);
-			return (mini->env[i]);
+			printf("mini = %s\n", mini->export[i]);
+			return (mini->export[i]);
 		}
 		i++;
 	}
@@ -56,12 +56,14 @@ int	unset_builtin(t_vars *mini)
 	while (split[i])
 	{
 		str = get_var(mini, split[i]);
+		printf("stringg = %s\n", str);
 		if (!str)
 		{
 			printf("Variable not found.\n");
 			return (1);
 		}
 		env_update(mini, str);
+		exp_update(mini, str);
 		i++;
 	}
 	return (0);
