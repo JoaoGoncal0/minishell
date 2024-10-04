@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/02 16:44:37 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:42:07 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ char	*get_var(t_vars *mini, char *var)
 			i++;
 			continue;
 		}
-		if (ft_strncmp(mini->export[i], var, ft_strlen(var)) == 0 &&
-		mini->export[i][ft_strlen(var)] == '=')
+		if (ft_strncmp(mini->export[i], var, ft_strlen(var)) == 0)
 		{
 			printf("mini = %s\n", mini->export[i]);
 			return (mini->export[i]);

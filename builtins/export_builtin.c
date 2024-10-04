@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/30 21:59:10 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:54:52 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,27 @@ void	init_export(t_vars *mini)
 	}
 	mini->export[i] = NULL;
 	mini->exp_len = export_len(mini->export);
-	//sorting_export(mini);
 }
 
 int	export_builtin(t_vars *mini)
 {
 	int	i;
+	//int len;
 
 	i = -1;
-	
 	if (ft_strchr(mini->input, ' '))
 		export_var(mini);
 	else
 	{
-		mini->exp_len = export_len(mini->export);
-		printf("\n\n valor do EXP_LEN = %d\n\n", mini->exp_len);
+		//len = export_len(mini->export);
+		//printf("\n\n valor do EXP_LEN = %d\n\n", len);
 		while (++i < mini->exp_len)
+		{
+			if (!mini->export[i])
+				continue;
 			printf("declare -x %s\n", mini->export[i]);
+		}
+		
 	}
 	//printf("declare 22 -x %s\n", mini->export[22]);
 	//printf("declare 23 -x %s\n", mini->export[23]);
@@ -71,7 +75,7 @@ void	swap_strings(char **a, char **b)
 int		export_len(char **str)
 {
 	int i;
-
+	
 	i = 0;
 	while (str[i])
 		i++;

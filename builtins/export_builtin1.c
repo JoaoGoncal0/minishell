@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/02 16:51:03 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/03 23:33:31 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,33 @@ int     export_check(char *str)
     return (1);
 }
 
+int		str_compare(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	if (s1 && s2)
+	{
+		while (s1[i] && s1[i] != '=' && s2[i] && s2[i] != '=')
+		{
+			if (s1[i] != s2[i])
+				return (1);
+			i++;
+		}
+		if ((s1[i] == '=' || !s1[i]) && (s2[i] == '=' || !s2[i]))
+            return (0);
+	}
+	return (1);
+}
+
 void    export_var(t_vars *mini)
 {
     int     i;
     char    **split;
+	int		j;
 
     i = 1;
+	j = 0;
     split = ft_split(mini->input, ' ');
 	mini->new_export = malloc(sizeof(char *) * (mini->exp_len + 10));
 	if (!mini->new_export)
@@ -52,9 +73,21 @@ void    export_var(t_vars *mini)
     while (split[i]) 
     {
 		mini->exp_len = export_len(mini->export) + 1;
-		printf("\nsplit = %s\n", split[i]);
         if (export_check(split[i]) == 0)
         {
+			//printf("\nsplit = %s\n", split[i]);
+			//printf("\nexport = %s\n", mini->export[i]);
+			while (j < mini->exp_len)
+			{
+				if (str_compare(mini->export[j], split[i]) == 0)
+				{
+					printf("\n\n\nentrou\n\n\n");
+					free(mini->export[j]);
+					continue;
+				}
+				else
+					j++;
+			}
 			export_update(mini, split[i]);
 			i++;
 		}
@@ -164,7 +197,7 @@ void	exp_update1(t_vars *mini)
 		i++;
 	}
 	i = 0;
-	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len));
+	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len + 1));
 	if (!temp)
 		return;
 	mini->export = temp;
@@ -177,20 +210,19 @@ void	exp_update1(t_vars *mini)
 		j++;
 	}
 	mini->export[j] = NULL;
-	//printf("\n\n----- UPDATED ENV ------\n\n\n");
-	//j = -1;
-	//while (++j < mini->env_len)
-	//{
-	//	if (!mini->new_env[j])
-	//		continue;
-	//	printf("%s\n", mini->new_env[j]);
-	//}
+	printf("\n\n----- UPDATED EXPORT ------\n\n\n");
+	j = -1;
+	while (++j < mini->exp_len)
+	{
+		if (!mini->new_export[j])
+			continue;
+		printf("%s\n", mini->new_export[j]);
+	}
 }
 
 void	exp_update(t_vars *mini, char *str)
 {
 	int	i;
-	int j;
 	int k;
 
 	i = 0;
@@ -223,12 +255,5 @@ void	exp_update(t_vars *mini, char *str)
 		}
 	}
 	mini->new_export[i] = NULL;
-	printf("\n\n----- UPDATED export ------\n\n\n");
-	j = -1;
-	while (++j < mini->exp_len)
-	{
-		while (!mini->new_export[j])
-			j++;
-	}
 	exp_update1(mini);
 }
