@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/09/25 15:01:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:05:34 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	env_update1(t_vars *mini)
 		i++;
 	}
 	i = 0;
-	temp = realloc(mini->env, sizeof(char *) * (mini->env_len));
+	temp = realloc(mini->env, sizeof(char *) * (mini->env_len + 1));
 	if (!temp)
 		return;
 	mini->env = temp;

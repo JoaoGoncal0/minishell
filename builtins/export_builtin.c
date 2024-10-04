@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/03 19:54:52 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/04 11:05:48 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_export(t_vars *mini)
 	int	i;
 
 	i = 0;
-	mini->export = malloc(sizeof(char *) * (mini->env_len + 10));
+	mini->export = malloc(sizeof(char *) * (mini->env_len + 1));
 	mini->new_export = malloc(sizeof(char *) * (mini->env_len + 10));
 	if (!mini->export)
 		return ;
