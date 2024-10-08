@@ -6,16 +6,11 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/04 12:17:38 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/05 21:44:16 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// verificar o numero de argumentos e o formato dos mesmos
-// só aceito letras ou o _ 
-// seguidas de letras minus Maius ou numeros ou _
-// adicionar ao export
 
 int     export_check(char *str)
 {

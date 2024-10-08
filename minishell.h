@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/04 15:03:24 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:47:26 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,14 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini);
 int		echo_compare(const char *s1, const char *s2);
 char	*take_equal(char *str);
 void	dollar_quote(t_vars *mini, char *str);
+
+//builtin cd
+char	*find_env_var(char *str);
+int		find_var(char **env, char *var);
+void	cd_update_env(t_vars *mini);
+void	ft_chdir(char *path, t_vars *mini);
+void	cd_dir(char **args, t_vars *mini);
+void	cd_builtin(char **args, t_vars *mini);
 
 //quotes.c 
 

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/30 19:15:13 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/07 17:47:43 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int	checkbuiltin(t_vars *mini)
 	else if ((ft_strncmp(mini->input, "export", 6) == 0))
 	{
 		export_builtin(mini);
+		return (0);
+	}
+	else if (ft_strncmp(mini->input, "cd", 2) == 0)
+	{
+		cd_builtin(mini->input, mini);
 		return (0);
 	}
 	else if (ft_strncmp(mini->input, "echo", 4) == 0)
