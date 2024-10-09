@@ -6,20 +6,11 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 21:45:25 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/08 13:19:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/09 10:16:28 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// procurar pwd e old pwd e atualizar os valores
-
-// ver se da para daar chdir ou seja entrar no diretorio se sim
-// atualizer as variaves senao error mensage
-
-// verificar o que é proximo elemento se tem  o que é
-
-// se tiver mais de 2 argumentos ardeu senao fazer :)
 
 int		find_var(t_vars *mini, char *to_find)
 {
@@ -28,15 +19,18 @@ int		find_var(t_vars *mini, char *to_find)
 
 	i = 0;
 	to_find_len = ft_strlen(to_find);
-	printf("to find = %s\n", to_find);
 	while (i < mini->env_len)
 	{
-		if (ft_strncmp(mini->env[i], to_find, to_find_len) == 0 &&
-		mini->env[i][to_find_len] == '=')
+		if (mini->env[i] && ft_strncmp(mini->env[i], to_find, to_find_len) == 0
+		&& mini->env[i][to_find_len] == '=')
 			return (i);
+		else if (!mini->env[i])
+		{
+			ft_putstr_fd("Var not find\n", STDERR_FILENO);
+			return (-1);
+		}
 		i++;
 	}
-	ft_putstr_fd("Var not find\n", STDERR_FILENO);
 	return (-1);
 }
 
@@ -97,10 +91,8 @@ char	*ft_getenv(t_vars *mini ,char	*to_find)
 
 void	cd_1_arg(t_vars *mini)
 {
-	int i;
 	char *directory;
 	
-	i = 0;
 	directory = NULL;
 	if (ft_countwords(mini->input, ' ') == 1)
 	{
@@ -153,7 +145,7 @@ void	cd_builtin(t_vars *mini)
 		cd_2_args(mini);
 	else
 	{
-		ft_putendl_fd("minishell: cd: too meny arguments", STDERR_FILENO);
+		ft_putendl_fd("minishell: cd: Too many arguments", STDERR_FILENO);
 		// error code = 1;
 	}
 }
