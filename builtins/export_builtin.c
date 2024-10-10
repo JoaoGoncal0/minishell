@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/04 11:05:48 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/10 09:54:45 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	init_export(t_vars *mini)
 int	export_builtin(t_vars *mini)
 {
 	int	i;
-	//int len;
 
 	i = -1;
 	if (ft_strchr(mini->input, ' '))

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/09 18:50:52 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:36:08 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,11 @@ void    quote_together(char *cmd);
 
 //builtin unset
 int		unset_builtin(t_vars *mini);
+
+//heredoc.c
+char	**heredoc_lim_array(t_vars *mini);
+
+// free.c
+void	free_double_array(char **str, t_vars *mini);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/08 11:52:43 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/10 15:36:25 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	checkbuiltin(t_vars *mini)
 int	checkinput(t_vars *mini)
 {
 	mini->flagfd = 2;
+	heredoc_lim_array(mini);
 	allocfd(numpipe(mini->input), mini);
 	if (checkbuiltin(mini) == 0)
 		return (2);

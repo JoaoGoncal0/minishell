@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/05 21:44:16 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/10 10:24:49 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,26 +76,25 @@ void    export_var(t_vars *mini)
 void	export_update(t_vars *mini, char *str)
 {
 	int	i;
-	int k;
-    int done;
+    int	done;
     
 	i = 0;
-	k = 0;
     done = 0;
 	if (!mini->new_export)
     {
         printf("Error: mini->new_export not initialized.\n");
         return;
 	}
-	while (k < mini->exp_len)
-	{
-		if (mini->new_export[k])
-		{
-			free(mini->new_export[k]);
-			mini->new_export[k] = NULL;
-		}
-		k++;
-	}
+	// while (k < mini->exp_len)
+	// {
+	// 	if (mini->new_export[k])
+	// 	{
+	// 		free(mini->new_export[k]);
+	// 		mini->new_export[k] = NULL;
+	// 	}
+	// 	k++;
+	// }
+	free_double_array(mini->new_export, mini);
 	while (i < mini->exp_len)
 	{
 		if (mini->export[i] && str_compare(mini->export[i], str) == 0)
@@ -109,7 +108,6 @@ void	export_update(t_vars *mini, char *str)
 		{
             done = 1;
             mini->new_export[i] = ft_strdup(str);
-			//printf("Inserido em new_export[%d]: %s\n", i, mini->new_export[i]);
 			i++;
 			continue;
 		}
@@ -123,104 +121,71 @@ void	export_update(t_vars *mini, char *str)
 
 void	export_update1(t_vars *mini)
 {
-	int i;
-	int j;
-	char **temp;
-    //int s;
-
+	int		i;
+	char	**temp;
+	
 	i = 0;
-	j = 0;
-	while (i < mini->exp_len)
-	{
-		if (mini->export[i])
-		{
-			free(mini->export[i]);
-			mini->export[i] = NULL;
-		}
-		i++;
-	}
-	//printf("\n\n----- NEW EXPORT ------\n\n\n");
-	//s = -1;
-	//while (++s < mini->exp_len)
-	//	printf("declare -x: %s\n", mini->new_export[s]);
-	i = 0;
+	free_double_array(mini->export, mini);
 	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len + 1));
 	if (!temp)
 		return;
 	mini->export = temp;
-	while (j < mini->exp_len)
+	while (i < mini->exp_len)
 	{
-		if (mini->new_export[j])
-			mini->export[j] = ft_strdup(mini->new_export[j]);
+		if (mini->new_export[i])
+			mini->export[i] = ft_strdup(mini->new_export[i]);
 		else
-			mini->export[j] = NULL;
-		j++;
+			mini->export[i] = NULL;
+		i++;
     }
-	mini->export[j] = NULL;
+	mini->export[i] = NULL;
 	sorting_export(mini);
-	//printf("\n\n----- UPDATED EXPORT ------\n\n\n");
-	//s = -1;
-	//while (++s < mini->exp_len)
-	//	printf("fake -x %s\n", mini->export[s]);
+}
+
+void	free_double_array(char **str, t_vars *mini)
+{
+	int i;
+
+	i = 0;
+	while (i < mini->exp_len)
+	{
+		if (str[i])
+		{
+			free(str[i]);
+			str[i] = NULL;
+		}
+		i++;
+	}
 }
 
 void	exp_update1(t_vars *mini)
 {
 	int i;
-	int j;
 	char **temp;
 
 	i = 0;
-	j = 0;
-	while (i < mini->exp_len)
-	{
-		if (mini->export[i])
-		{
-			free(mini->export[i]);
-			mini->export[i] = NULL;
-		}
-		i++;
-	}
-	i = 0;
+	free_double_array(mini->export, mini);
 	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len + 1));
 	if (!temp)
 		return;
 	mini->export = temp;
-	while (j < mini->exp_len)
+	while (i < mini->exp_len)
 	{
-		if (mini->new_export[j])
-			mini->export[j] = ft_strdup(mini->new_export[j]);
+		if (mini->new_export[i])
+			mini->export[i] = ft_strdup(mini->new_export[i]);
 		else
-			mini->export[j] = NULL;
-		j++;
+			mini->export[i] = NULL;
+		i++;
 	}
-	mini->export[j] = NULL;
-	//printf("\n\n----- UPDATED EXPORT ------\n\n\n");
-	//j = -1;
-	//while (++j < mini->exp_len)
-	//{
-	//	if (!mini->new_export[j])
-	//		continue;
-	//	printf("%s\n", mini->new_export[j]);
-	//}
+	mini->export[i] = NULL;
 }
 
 void	exp_update(t_vars *mini, char *str)
 {
 	int	i;
-	int k;
 
 	i = 0;
-	k = 0;
-	while (k < mini->exp_len)
-	{
-		if (mini->new_export[k])
-		{
-			free(mini->new_export[k]);
-			mini->new_export[k] = NULL;
-		}
-		k++;
-	}	
+	free_double_array(mini->new_export, mini);
 	while (i < mini->exp_len)
 	{
 		if ((mini->export[i] && 
