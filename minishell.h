@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/08 13:07:46 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:50:52 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ char	*ft_getenv( t_vars *mini, char	*to_find);
 void	cd_1_arg(t_vars *mini);
 void	cd_2_args(t_vars *mini);
 void	cd_builtin(t_vars *mini);
+int		cd_special_1(t_vars *mini);
 
 //quotes.c 
 

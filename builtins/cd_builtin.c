@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 21:45:25 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/09 10:16:28 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/09 18:58:43 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,19 +89,32 @@ char	*ft_getenv(t_vars *mini ,char	*to_find)
 	return (var);
 }
 
+int		cd_special_1(t_vars *mini)
+{
+	char **split;
+	
+	if (ft_countwords(mini->input, ' ') == 2)
+	{
+		split = ft_split(mini->input, ' ');
+		if (split[1] && ft_strncmp(split[1], "~", 1) == 0)
+			return (0);
+		else
+			return (-1);
+	}
+	else
+		return (-1);
+}
+
 void	cd_1_arg(t_vars *mini)
 {
 	char *directory;
 	
 	directory = NULL;
-	if (ft_countwords(mini->input, ' ') == 1)
+	directory = ft_getenv(mini, "HOME");
+	if (!directory)
 	{
-		directory = ft_getenv(mini, "HOME");
-		if (!directory)
-		{
-			ft_putstr_fd("minishel: cd: HOME not set", STDERR_FILENO);
-			// error code = 1;
-		}
+		ft_putstr_fd("minishel: cd: HOME not set", STDERR_FILENO);
+		// error code = 1;
 	}
 	if (directory)
 		in_directory(directory, mini);
@@ -114,21 +127,18 @@ void	cd_2_args(t_vars *mini)
 	char *directory;
 	
 	directory = NULL;
-	if (ft_countwords(mini->input, ' ') == 2)
+	split = ft_split(mini->input, ' ');
+	if (split[1] && ft_strncmp(split[1], "-", 1) == 0)
 	{
-		split = ft_split(mini->input, ' ');
-		if (split[1] && ft_strncmp(split[1], "-", 1) == 0)
+		directory = ft_getenv(mini, "OLDPWD");
+		if (!directory)
 		{
-			directory = ft_getenv(mini, "OLDPWD");
-			if (!directory)
-			{
-				ft_putstr_fd("minishel: cd: OLDPWD not set", STDERR_FILENO);
-				// error code = 1;
-			}
+			ft_putstr_fd("minishel: cd: OLDPWD not set", STDERR_FILENO);
+			// error code = 1;
 		}
-		else
-			directory = ft_strdup(split[1]);
 	}
+	else
+		directory = ft_strdup(split[1]);
 	if (directory)
 		in_directory(directory, mini);
 	free(directory);
@@ -139,7 +149,7 @@ void	cd_builtin(t_vars *mini)
 	int i;
 
 	i = ft_countwords(mini->input, ' ');
-	if (i == 1)
+	if (i == 1 || cd_special_1(mini) == 0)
 		cd_1_arg(mini);
 	else if (i == 2)
 		cd_2_args(mini);
