@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:30:32 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/10 14:15:41 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:14:08 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ void	redirect(t_vars *mini, char *str)
 	}
 	mini->redrct[j] = '\0';
 	if (ft_strchr(str, '<'))
-		mini->flagfd = 0;
-	else
-		mini->flagfd = 1;
+		mini->flagfdin = 1;
+	else if (ft_strchr(str, '>'))
+		mini->flagfdout = 1;
 }
 
 int	numpipe(char *str)

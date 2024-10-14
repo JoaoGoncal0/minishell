@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:08:32 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/09/27 13:16:55 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:07:53 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	arrangepipes(t_vars *mini, int i)
 	if (!mini->redrct && i == 0)
 	{
 		// ft_printf("bbbb: %d\n", i + 1);
-		// ft_printf("bb22: %d\n", mini->fd[i + 1]);
+		ft_printf("bb22: %d\n", mini->fd[i + 1]);
 		dup2(mini->fd[i + 1], 1);
 		return ;
 	}
 	else if (!mini->redrct && i < numpipe(mini->input))
 	{
-		// ft_printf("0: %d\n", mini->fd[2 * (i - 1)]);
-		// ft_printf("1: %d\n", mini->fd[2 * i + 1]);
+		ft_printf("0: %d\n", mini->fd[2 * (i - 1)]);
+		ft_printf("1: %d\n", mini->fd[2 * i + 1]);
 		dup2(mini->fd[2 * (i - 1)], 0);
 		dup2(mini->fd[2 * i + 1], 1);
 		return ;
@@ -32,29 +32,38 @@ void	arrangepipes(t_vars *mini, int i)
 	else if (!mini->redrct && i == numpipe(mini->input))
 	{
 		// ft_printf("aaa0: %d\n", 2 * (i - 1));
-		// ft_printf("aaa1: %d\n", mini->fd[2 * (i - 1)]);
+		ft_printf("aaa1: %d\n", mini->fd[2 * (i - 1)]);
 		dup2(mini->fd[2 * (i - 1)], 0);
 		return ;
 	}
 }
 
-void	indicateredi(int flagfd, int *fd, char *redirection)
+int	indicateredi(t_vars *mini, int *fd, char *redirection)
 {
-	if (flagfd == 0)
+	int	i;
+
+	i = 0;
+	if (mini->flagfdin != 0)
 	{
 		fd[0] = open(redirection, O_RDONLY);
 		if (fd[0] == -1)
-		{
-			// ft_printf("%s: No such file or directory", redirection);
-			return ;
-		}
+			return (ft_printf("%s: No such file or directory\n", redirection));
 		dup2(fd[0], 0);
 	}
-	else if (flagfd == 1)
+	free(mini->redrct);
+	mini->flagfdin = 0;
+	while (mini->input[i] && mini->input[i] != '>')
+		i++;
+	redirect(mini, &mini->input[i]);
+	if (mini->flagfdout != 0)
 	{
 		fd[1] = open(redirection, O_WRONLY | O_TRUNC | O_CREAT, 0644);
 		dup2(fd[1], 1);
 	}
+	if (mini->redrct == NULL)
+		free(mini->redrct);
+	mini->flagfdout = 0;
+	return (0);
 }
 
 void	execute(t_vars *mini, int i, int p)
@@ -71,15 +80,12 @@ void	execute(t_vars *mini, int i, int p)
 			ft_printf("1a\n");
 			mini->flag = ft_split(mini->input, '|');
 			mini->trueflag = ft_goodsplit(mini->flag[i]);
-			// ft_printf("TRUEFLAG 1:%s\n", mini->trueflag[0]);
-			// ft_printf("TRUEFLAG 2:%s\n", mini->trueflag[1]);
-			// ft_printf("TRUEFLAG 3:%s\n", mini->trueflag[2]);
-			// ft_printf("TRUEFLAG 4:%s\n", mini->trueflag[3]);
 			if (getpipepath(mini->trueflag, mini) == 0)
 				return ;
-			mini->flagfd = 2;
+			mini->flagfdin = 0;
+			mini->flagfdout = 0;
 			veryexecute(mini, i);
-			free(mini->check);
+			mini->check = NULL;
 			ft_printf("2a\n");
 			i++;
 		}
@@ -87,7 +93,7 @@ void	execute(t_vars *mini, int i, int p)
 	else
 		executeone(mini);
 	waitpid(mini->pid, NULL, 0);
-	free(mini->fd);
+	closeall(mini);
 }
 
 void	veryexecute(t_vars *mini, int i)
@@ -98,9 +104,11 @@ void	veryexecute(t_vars *mini, int i)
 	{
 		redirect(mini, mini->input);
 		arrangepipes(mini, i);
-		indicateredi(mini->flagfd, mini->fd, mini->redrct);
-		execve(mini->check, mini->trueflag, mini->env);
-		closeall(mini);
+		indicateredi(mini, mini->fd, mini->redrct);
+		printf("817242a\n");
+		if (execve(mini->check, mini->trueflag, mini->env) == -1)
+			ft_printf("%s: command not found\n", mini->trueflag[0]);
+		printf("555555555555555\n");
 		exit(2);
 	}
 	else
@@ -110,7 +118,6 @@ void	veryexecute(t_vars *mini, int i)
 	}
 }
 
-// VER AQUI
 void	executeone(t_vars *mini)
 {
 	mini->redrct = NULL;
@@ -118,14 +125,13 @@ void	executeone(t_vars *mini)
 	if (mini->pid == 0)
 	{
 		redirect(mini, mini->input);
-		if (mini->flagfd != 2)
-			indicateredi(mini->flagfd, mini->fd, mini->redrct);
+		if ((mini->flagfdin != 0 || mini->flagfdout != 0) && \
+				indicateredi(mini, mini->fd, mini->redrct) != 0)
+			exit(2);
 		else
 			dup2(mini->fd[1], 1);
-		// printf("comando %s\n", mini->trueflag[0]);
-		// printf("mini check %s\n", mini->check);
 		if (execve(mini->check, mini->trueflag, mini->env) == -1)
-			ft_printf("aiai/%s: command not found\n", mini->trueflag[0]);
+			ft_printf("aiai||%s: command not found\n", mini->trueflag[0]);
 		exit(1);
 	}
 	else

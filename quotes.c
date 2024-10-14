@@ -132,38 +132,31 @@ void    remove_double_quote(char *cmd)
     cmd[j] = '\0';
 }
 
-char    *quotescrazy(char *input)
+char	*quotescrazy(char *input, int i, int nq)
 {
-    int     i;
-    char    q;
-    char	nq;
-    int     pq;
+	char	q;
+	int		pq;
 
-    i = 0;
-    nq = 0;
-	// printf("string = %s\n", input);
-    while (input[i])
-    {
-		if (ft_strncmp(input, "echo '", 6) == 0)
-			return (input);
-        if (input[i] == '\'' || input[i] == '"')
-        {
-            q = input[i];
-            pq = i;
-            i++;
-            nq = 1;
-            while (input[i] && input[i] != q)
-                i++;
-            if (input[i] == q && nq == 1)
-            {
-                input[i] = ' ';
-                input[pq] = ' ';
-                nq = 0;
-            }
-        }
-        i++;
-    }
-    if (nq == 1)
-        return (NULL);
-    return (input);
+	while (input[i])
+	{
+		if (input[i] == '\'' || input[i] == '"')
+		{
+			q = input[i];
+			pq = i;
+			i++;
+			nq = 1;
+			while (input[i] && input[i] != q)
+				i++;
+			if (input[i] == q && nq == 1)
+			{
+				input[i] = ' ';
+				input[pq] = ' ';
+				nq = 0;
+			}
+		}
+		i++;
+	}
+	if (nq == 1)
+		return (NULL);
+	return (input);
 }

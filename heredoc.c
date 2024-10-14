@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:21:30 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/11 15:01:28 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:23:46 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,16 @@ void	ft_putstr_newline(char *str, int fd)
 	write(fd, "\n", 1);
 }
 
+int ft_strcmp(const char *s1, const char *s2)
+{
+    while (*s1 && (*s1 == *s2))
+    {
+        s1++;
+        s2++;
+    }
+    return *(unsigned char *)s1 - *(unsigned char *)s2;
+}
+
 void	heredoc_input(int fd[2], char **limiters)
 {
 	char	*line;
@@ -92,24 +102,22 @@ void	heredoc_input(int fd[2], char **limiters)
 	total_lim = 0;
 	while (limiters[total_lim])
 		total_lim++;
+	printf("total = %d\n", total_lim);
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL ||
-		(ft_strncmp(line, limiters[i], ft_strlen(limiters[i])) == 0
-		&& ft_strlen(line) == ft_strlen(limiters[i])))
+		if (line == NULL || (ft_strcmp(line, limiters[i]) == 0))
 		{
 			free(line);
 			i++;
+			printf("i = %d\n", i);
 			if (i == total_lim)
 				break;
 			continue;
 		}
-		if (i < total_lim)
-		{
-			printf("aqui\n");
+		if ((i == total_lim - 1 && line == NULL) || 
+		(ft_strcmp(line, limiters[i]) == 0))
 			ft_putstr_newline(line, fd[1]);
-		}
 		free(line);
 	}
 	close(fd[1]);
@@ -190,3 +198,7 @@ int		check_heredoc(t_vars *mini)
 	}
 	return (1);
 }
+
+// com cat << ola > z.txt substitui o que estiver no file z.txt pelo
+// output do heredoc
+// com cat << ola >> z.txt ele da append ao output do heredoc no file

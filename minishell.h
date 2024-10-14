@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/11 15:00:57 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:18:51 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ typedef struct s_vars
 	char	*check;
 	// parsing
 	char	*redrct;
-	int		flagfd;
+	int		flagfdin;
+	int		flagfdout;
 	int		*fd;
 	int		pid;
-	int		i;
+	int		i;	
 	// heredoc
 	char	**limiters;
 	int		heredoc_on;
@@ -55,6 +56,9 @@ int		numpipe(char *str);
 int		inputnum(char *input);
 void	arrangegoodsplit(t_vars *mini);
 int		getpipepath(char **trueflag, t_vars *mini);
+char	*trimtrimtrim(char *str, int i);
+int		ft_checkprint(char *str);
+
 
 // path
 int		fastcheckpath(t_vars *mini, int flag, int i);
@@ -124,7 +128,7 @@ int		cd_special_1(t_vars *mini);
 int		check_quotes(char *input);
 void    remove_single_quote(char *cmd);
 void    remove_double_quote(char *cmd);
-char    *quotescrazy(char *input);
+char    *quotescrazy(char *input, int i, int nq);
 void    quote_together(char *cmd);
 
 //builtin unset

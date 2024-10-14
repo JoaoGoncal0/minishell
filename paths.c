@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:42:08 by elemesmo          #+#    #+#             */
-/*   Updated: 2024/06/12 01:54:36 by elemesmo         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:13:11 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	closeall(t_vars *mini)
 	int	i;
 
 	i = 0;
-	while (i < (numpipe(mini->input) + 1) * 2)
+	while (i < (numpipe(mini->input) + 1) * 2 && mini->fd[i])
 	{
 		close(mini->fd[i]);
 		i++;
 	}
+	if (mini->fd)
+		free(mini->fd);
 }
 
 void	allocfd(int p, t_vars *mini)
@@ -41,12 +43,14 @@ void	allocfd(int p, t_vars *mini)
 void	checkpath(char *cmd, t_vars *mini)
 {
 	int		i;
+	char	*boas;
 
 	i = 0;
-	if (access(mini->input, X_OK) == 0)
+	boas = ft_strdup(trimtrimtrim(mini->input, 0));
+	if (access(boas, X_OK) == 0)
 	{
-		// espacos e cenas a seguir ta eaaaaaaaaaasy
-		mini->check = ft_strdup(mini->input);
+		mini->check = ft_strdup(boas);
+		free(boas);
 		return ;
 	}
 	if (access(cmd, X_OK) == 0)

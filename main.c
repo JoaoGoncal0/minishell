@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/11 14:15:22 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/12 16:19:16 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	checkbuiltin(t_vars *mini)
 
 int	checkinput(t_vars *mini)
 {
-	mini->flagfd = 2;
+	mini->flagfdin = 0;
+	mini->flagfdout = 0;
 	if (check_heredoc(mini) == 0)
 	{
 		heredoc(mini);
@@ -84,7 +85,7 @@ int	checkinput(t_vars *mini)
 	if (inputnum(mini->input) != -1)
 	{
 		checkpath(&mini->input[findcmdplace(mini->input, mini)], mini);
-		arrangegoodsplit(mini);
+		//arrangegoodsplit(mini);
 		execute(mini, 0, numpipe(mini->input));
 		free(mini->check);
 		return (5);
@@ -107,7 +108,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			mini.input = quotescrazy(mini.input);
+			mini.input = quotescrazy(mini.input, 0, 0);
 			// printf("depois input %s\n", mini.input);
 			if (mini.input == NULL)
 				printf ("Quote error\n");
