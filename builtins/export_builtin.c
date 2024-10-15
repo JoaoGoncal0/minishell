@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/14 16:00:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:34:31 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	init_export(t_vars *mini)
 		}
 	}
 	mini->export[i] = NULL;
+	printf("mini ->env = %s\n", mini->env[2]);
 	mini->exp_len = export_len(mini->export);
-	
 }
 
 int	export_builtin(t_vars *mini)
@@ -48,18 +48,14 @@ int	export_builtin(t_vars *mini)
 		export_var(mini);
 	else
 	{
-		//len = export_len(mini->export);
-		//printf("\n\n valor do EXP_LEN = %d\n\n", len);
+		sorting_export(mini);
 		while (++i < mini->exp_len)
 		{
 			if (!mini->export[i])
 				continue;
 			printf("declare -x %s\n", mini->export[i]);
 		}
-		
 	}
-	//printf("declare 22 -x %s\n", mini->export[22]);
-	//printf("declare 23 -x %s\n", mini->export[23]);
 	return (0);
 }
 

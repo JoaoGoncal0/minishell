@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/14 18:33:30 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:27:34 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	env_builtin(t_vars *mini);
 void	env_update(t_vars *mini, char *str);
 void	create_env(t_vars *mini);
 void	free_first_string(char **arr);
+void	shlvl_update_env(t_vars *mini);
+void	shlvl_update_exp(t_vars *mini);
 void	shlvl_update(t_vars *mini);
 
 // builtin export

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/10 10:24:49 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:20:42 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	export_update(t_vars *mini, char *str)
 	// 	}
 	// 	k++;
 	// }
-	free_double_array(mini->new_export, mini);
+	printf("mini->exp_len = %d\n", mini->exp_len);
+	//free_double_array(mini->new_export, mini);
 	while (i < mini->exp_len)
 	{
 		if (mini->export[i] && str_compare(mini->export[i], str) == 0)
