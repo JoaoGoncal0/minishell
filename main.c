@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/12 16:19:16 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:33:07 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	checkinput(t_vars *mini)
 {
 	mini->flagfdin = 0;
 	mini->flagfdout = 0;
+	allocfd(numpipe(mini->input), mini);
+	if (checkbuiltin(mini) == 0)
+		return (2);
 	if (check_heredoc(mini) == 0)
 	{
 		heredoc(mini);
 		return (0);
 	}
-	allocfd(numpipe(mini->input), mini);
-	if (checkbuiltin(mini) == 0)
-		return (2);
 	if (numpipe(mini->input) > 0)
 	{
 		execute(mini, 0, numpipe(mini->input));
@@ -102,6 +102,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env(env, &mini);
 	init_export(&mini);
+	shlvl_update(&mini);
 	while (1)
 	{
 		mini.input = readline("a espera> ");

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:21:30 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/12 16:23:46 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:38:40 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,6 @@ void	heredoc_lim_array(t_vars *mini)
 	free_array(split);
 }
 
-void	ft_putstr_newline(char *str, int fd)
-{
-	if (!str)
-		return;
-	write(fd, str, ft_strlen(str));
-	write(fd, "\n", 1);
-}
-
 int ft_strcmp(const char *s1, const char *s2)
 {
     while (*s1 && (*s1 == *s2))
@@ -117,7 +109,7 @@ void	heredoc_input(int fd[2], char **limiters)
 		}
 		if ((i == total_lim - 1 && line == NULL) || 
 		(ft_strcmp(line, limiters[i]) == 0))
-			ft_putstr_newline(line, fd[1]);
+			ft_putendl_fd(line, fd[1]);
 		free(line);
 	}
 	close(fd[1]);

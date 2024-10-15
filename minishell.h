@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/12 16:18:51 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/14 18:33:30 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_vars
 	char	**new_export;
 	int		exp_len;
 	int		env_len;
+	int		flag_env;
 	// paths
 	char	**flag;
 	char	**trueflag;
@@ -84,6 +85,9 @@ void	veryexecute(t_vars *mini, int i);
 void	init_env(char **env, t_vars *mini);
 void	env_builtin(t_vars *mini);
 void	env_update(t_vars *mini, char *str);
+void	create_env(t_vars *mini);
+void	free_first_string(char **arr);
+void	shlvl_update(t_vars *mini);
 
 // builtin export
 void	init_export(t_vars *mini);
@@ -144,7 +148,6 @@ void	heredoc_child(int fd[2], char **limiters);
 void	creat_pipe(int fd[2]);
 int		heredoc(t_vars *mini);
 int		check_heredoc(t_vars *mini);
-void	ft_putstr_newline(char *str, int fd);
 
 // free.c
 void	free_double_array(char **str, t_vars *mini);
