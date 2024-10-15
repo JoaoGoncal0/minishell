@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/15 12:35:06 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:18:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(mini.input) > 0)
 		{
 			add_history(mini.input);
-			mini.input = quotescrazy(mini.input, 0, 0);
-			// printf("depois input %s\n", mini.input);
+			mini.input = quotescrazy(mini.input);
 			if (mini.input == NULL)
 				printf ("Quote error\n");
 			else

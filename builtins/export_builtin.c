@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/15 12:34:31 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:21:10 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	init_export(t_vars *mini)
 		}
 	}
 	mini->export[i] = NULL;
-	printf("mini ->env = %s\n", mini->env[2]);
 	mini->exp_len = export_len(mini->export);
 }
 

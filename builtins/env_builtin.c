@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/15 12:28:48 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:20:05 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,12 +177,6 @@ void	env_builtin(t_vars *mini)
 
 void	shlvl_update(t_vars *mini)
 {
-	shlvl_update_env(mini);
-	//shlvl_update_exp(mini);
-}
-
-void	shlvl_update_env(t_vars *mini)
-{
 	int i;
 	char *shell_level;
 	char *new_shell_level;
@@ -197,24 +191,5 @@ void	shlvl_update_env(t_vars *mini)
 	new_shell_level = ft_strjoin("SHLVL=", ft_itoa(increment));
 	free(mini->env[i]);
 	mini->env[i] = ft_strdup(new_shell_level);
-	free(new_shell_level);
-}
-
-void	shlvl_update_exp(t_vars *mini)
-{
-	int i;
-	char *shell_level;
-	char *new_shell_level;
-	int increment;
-
-	i = find_var(mini, "SHLVL");
-	if (i == -1)
-		return;
-	shell_level = ft_strchr(mini->env[i], '=') + 1;
-	increment = ft_atoi(shell_level);
-	increment++;
-	new_shell_level = ft_strjoin("SHLVL=", ft_itoa(increment));
-	free(mini->export[i]);
-	mini->export[i] = ft_strdup(new_shell_level);
 	free(new_shell_level);
 }
