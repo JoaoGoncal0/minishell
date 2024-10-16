@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/15 13:55:13 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/16 00:58:36 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	echo_dollar_finish(char *str, int k, t_vars *mini);
 int		echo_compare(const char *s1, const char *s2);
 char	*take_equal(char *str);
 void	dollar_quote(t_vars *mini, char *str);
+int		dollar_flag_count(char *str);
 
 //builtin cd
 int		find_var(t_vars *mini, char *to_find);
@@ -137,14 +138,15 @@ void    quote_together(char *cmd);
 
 //builtin unset
 int		unset_builtin(t_vars *mini);
+void	pwd_builtin(void);
 
 //heredoc.c
 int		count_limiters(char **split);
 void	free_array(char **array);
 void	heredoc_lim_array(t_vars *mini);
-void	heredoc_input(int fd[2], char **limiters);
+void	heredoc_input(int fd[2], char **limiters, t_vars *mini);
 void	fork_error(void);
-void	heredoc_child(int fd[2], char **limiters);
+void	heredoc_child(int fd[2], char **limiters, t_vars *mini);
 void	creat_pipe(int fd[2]);
 int		heredoc(t_vars *mini);
 int		check_heredoc(t_vars *mini);

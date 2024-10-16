@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/15 12:20:42 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:21:47 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void    export_var(t_vars *mini)
 
     i = 1;
     split = ft_split(mini->input, ' ');
-	mini->new_export = malloc(sizeof(char *) * (mini->exp_len + 10));
 	if (!mini->new_export)
 		return;
     while (split[i]) 
@@ -193,15 +192,12 @@ void	exp_update(t_vars *mini, char *str)
 		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0) ||
 		!mini->export[i])
 		{
-			printf("valor do iiiii = %d\n", i);
 			i++;
 			continue;
 		}
 		if (mini->export[i])
 		{
-			printf("valor do i = %d\n", i);
 			mini->new_export[i] = ft_strdup(mini->export[i]);
-			printf("mini->new_export = %s\n", mini->export[i]);
 			i++;
 		}
 	}

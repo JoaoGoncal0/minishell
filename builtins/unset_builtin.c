@@ -6,11 +6,26 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/10 10:07:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:08:03 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+//int		pwd_check(t_vars *mini)
+//{
+//	if ((ft_strncmp(mini->input), "pwd", 3) == 0) && 
+//
+//}
+
+void	pwd_builtin(void)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	ft_printf("%s\n", pwd);
+	free(pwd);
+}
 
 char	*get_var(t_vars *mini, char *var)
 {

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/15 14:18:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:11:57 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,14 @@ int	more(char *input, int i)
 
 int	checkbuiltin(t_vars *mini)
 {
-	if (!(ft_strncmp(mini->input, "env\0", 4)) && !(more(mini->input, 3)))
+	if (!(ft_strncmp(mini->input, "env", 3)) && !(more(mini->input, 3)))
 	{
 		env_builtin(mini);
+		return (0);
+	}
+	else if ((ft_strncmp(mini->input, "pwd", 3) == 0))
+	{
+		pwd_builtin();
 		return (0);
 	}
 	else if ((ft_strncmp(mini->input, "export", 6) == 0))

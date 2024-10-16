@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/15 13:20:05 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:04:18 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ void	env_builtin(t_vars *mini)
 			i++;
 		if (mini->env[i])
 		{
-			//printf("o %s existe em %p\n\n",mini->env[i], mini->env[i]);
 			printf("%s\n", mini->env[i]);
 			i++;
 		}
