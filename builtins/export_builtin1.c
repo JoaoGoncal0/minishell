@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/16 11:21:47 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:59:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void	exp_update1(t_vars *mini)
 {
 	int i;
 	char **temp;
+	// int j;
 
 	i = 0;
 	free_double_array(mini->export, mini);
@@ -178,6 +179,14 @@ void	exp_update1(t_vars *mini)
 		i++;
 	}
 	mini->export[i] = NULL;
+	// printf("\n\n----- UPDATED ENV ------\n\n\n");
+	// j = -1;
+	// while (++j < mini->exp_len)
+	// {
+	// 	if (!mini->export[j])
+	// 		continue;
+	// 	printf("%s\n", mini->export[j]);
+	// }	
 }
 
 void	exp_update(t_vars *mini, char *str)
@@ -189,17 +198,9 @@ void	exp_update(t_vars *mini, char *str)
 	while (i < mini->exp_len)
 	{
 		if ((mini->export[i] && 
-		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0) ||
-		!mini->export[i])
-		{
-			i++;
-			continue;
-		}
-		if (mini->export[i])
-		{
+		ft_strncmp(mini->export[i], str, ft_strlen(str)) != 0))
 			mini->new_export[i] = ft_strdup(mini->export[i]);
-			i++;
-		}
+		i++;
 	}
 	mini->new_export[i] = NULL;
 	exp_update1(mini);

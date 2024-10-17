@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:42:08 by elemesmo          #+#    #+#             */
-/*   Updated: 2024/10/12 16:13:11 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:47:06 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	checkpath(char *cmd, t_vars *mini)
 	char	*boas;
 
 	i = 0;
+	printf("cmd = %s\n", cmd);
 	boas = ft_strdup(trimtrimtrim(mini->input, 0));
 	if (access(boas, X_OK) == 0)
 	{

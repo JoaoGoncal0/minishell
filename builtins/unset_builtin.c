@@ -6,17 +6,11 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/16 11:08:03 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:50:10 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//int		pwd_check(t_vars *mini)
-//{
-//	if ((ft_strncmp(mini->input), "pwd", 3) == 0) && 
-//
-//}
 
 void	pwd_builtin(void)
 {
@@ -59,19 +53,25 @@ int	unset_builtin(t_vars *mini)
 	int		i;
 	
 	i = 1;
-	if (ft_strncmp(mini->input, "unset\0", ft_strlen(mini->input)) == 0)
+	if (ft_strncmp(mini->input, "unset\0", 6) == 0)
 		return (1);
 	split = ft_split(mini->input, ' ');
 	if (!split || !split[i])
 	{
 		printf("No variable to unset.\n");
+		free(split);
 		return (1);
 	}
 	while (split[i])
 	{
 		str = get_var(mini, split[i]);
+		printf("str = %s\n", str);
 		if (!str)
+		{
+			free(split);
+			printf("Var not found\n");
 			return (1);
+		}
 		env_update(mini, str);
 		exp_update(mini, str);
 		i++;

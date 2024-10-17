@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/16 11:24:05 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:53:51 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,17 @@ int	export_builtin(t_vars *mini)
 {
 	int	i;
 
-	i = -1;
-	if (ft_strchr(mini->input, ' '))
+	i = 0;
+	sorting_export(mini);
+	if (ft_countwords(mini->input, ' ') > 1)
 		export_var(mini);
 	else
 	{
-		sorting_export(mini);
-		while (++i < mini->exp_len)
+		while (i < mini->exp_len)
 		{
-			if (!mini->export[i])
-				continue;
-			printf("declare -x %s\n", mini->export[i]);
+			if (mini->export[i])
+				printf("declare -x %s\n", mini->export[i]);
+			i++;
 		}
 	}
 	return (0);
@@ -83,9 +83,7 @@ void	sorting_export(t_vars *mini)
 	int	swapped;
 
 	swapped = 1;
-	//printf("numero 22: %s\n", mini->new_export[22]);
-	//printf("numero 23: %s\n", mini->new_export[23]);
-	//printf("numero 24: %s\n", mini->new_export[24]);
+	printf("\n\n AQUI \n\n");
 	while (swapped)
 	{
 		swapped = 0;

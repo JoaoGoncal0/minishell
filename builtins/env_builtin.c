@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/16 11:04:18 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:58:31 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	env_update1(t_vars *mini)
 		j++;
 	}
 	mini->env[j] = NULL;
-	//printf("\n\n----- UPDATED ENV ------\n\n\n");
-	//j = -1;
-	//while (++j < mini->env_len)
-	//{
-	//	if (!mini->new_env[j])
-	//		continue;
-	//	printf("%s\n", mini->new_env[j]);
-	//}
+	// printf("\n\n----- UPDATED ENV ------\n\n\n");
+	// j = -1;
+	// while (++j < mini->env_len)
+	// {
+	// 	if (!mini->export[j])
+	// 		continue;
+	// 	printf("%s\n", mini->export[j]);
+	// }
 }
 
 void	env_update(t_vars *mini, char *str)
@@ -68,21 +68,13 @@ void	env_update(t_vars *mini, char *str)
 			mini->new_env[k] = NULL;
 		}
 		k++;
-	}	
+	}
 	while (i < mini->env_len)
 	{
 		if ((mini->env[i] && 
-		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0) ||
-		!mini->env[i])
-		{
-			i++;
-			continue;
-		}
-		if (mini->env[i])
-		{
+		ft_strncmp(mini->env[i], str, ft_strlen(str)) != 0))
 			mini->new_env[i] = ft_strdup(mini->env[i]);
-			i++;
-		}
+		i++;
 	}
 	mini->new_env[i] = NULL;
 	env_update1(mini);

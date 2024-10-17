@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/16 11:11:57 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:43:09 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	checkinput(t_vars *mini)
 	}
 	if (inputnum(mini->input) != -1)
 	{
+		printf("mini->input[findcmdplace(mini->input, mini)] = %s\n", &mini->input[findcmdplace(mini->input, mini)]);
 		checkpath(&mini->input[findcmdplace(mini->input, mini)], mini);
 		//arrangegoodsplit(mini);
 		execute(mini, 0, numpipe(mini->input));
