@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 00:23:20 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:13:12 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,33 +147,6 @@ void	free_double_array(char **str, t_vars *mini)
 	}
 }
 
-void	exp_update1(t_vars *mini)
-{
-	int i;
-	char **temp;
-	//int j;
-
-	i = 0;
-	free_double_array(mini->export, mini);
-	temp = realloc(mini->export, sizeof(char *) * (mini->exp_len + 1));
-	if (!temp)
-		return;
-	mini->export = temp;
-	while (i < mini->exp_len)
-	{
-		if (mini->new_export[i])
-			mini->export[i] = ft_strdup(mini->new_export[i]);
-		else
-			mini->export[i] = NULL;
-		i++;
-	}
-	mini->export[i] = NULL;
-	//printf("\n\n----- UPDATED ENV ------\n\n\n");
-	//j = -1;
-	//while (++j < mini->exp_len)
-	// 	printf("%s\n", mini->export[j]);	
-}
-
 void	exp_update(t_vars *mini, char *str)
 {
 	int	i;
@@ -196,5 +169,4 @@ void	exp_update(t_vars *mini, char *str)
 	}
 	free(new_str);
     mini->export[i] = NULL;
-	//exp_update1(mini);
 }

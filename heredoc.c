@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:21:30 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/15 18:15:24 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:51:39 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,6 @@ int		count_limiters(char **split)
 		i++;
 	}
 	return (count);
-}
-
-void	free_array(char **array)
-{
-	int	i;
-	
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
 }
 
 void	heredoc_lim_array(t_vars *mini)

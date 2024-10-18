@@ -6,36 +6,46 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 00:30:44 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:24:59 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	init_export(t_vars *mini)
+void init_export(t_vars *mini)
 {
-	int	i;
+    int i = 0;
 
-	i = 0;
-	mini->export = malloc(sizeof(char *) * (mini->env_len + 1));
-	mini->new_export = malloc(sizeof(char *) * (mini->env_len + 10));
-	if (!mini->export || !mini->new_export)
-		return;
-	while (i < mini->env_len - 1)
+    mini->export = malloc(sizeof(char *) * (mini->env_len + 1));
+    mini->new_export = malloc(sizeof(char *) * (mini->env_len + 10));
+    if (!mini->export || !mini->new_export)
 	{
-		if (mini->env[i])
+        free_array(mini->export);
+        free_array(mini->new_export);
+        return;
+    }
+    while (i < mini->env_len)
+	{
+        if (mini->env[i])
 		{
-			mini->export[i] = ft_strdup(mini->env[i]);
-			if (!mini->export[i])
-				return;
-		}
+            mini->export[i] = ft_strdup(mini->env[i]);
+            if (!mini->export[i])
+			{
+                while (i > 0)
+                    free(mini->export[--i]);
+                free(mini->export);
+                free(mini->new_export);
+                return;
+            }
+        }
 		else
-			mini->export[i] = NULL;
-		i++;
-	}
-	mini->export[i] = NULL;
-	mini->exp_len = export_len(mini->export);
+            mini->export[i] = NULL; 
+        i++;
+    }
+    mini->export[i] = NULL;
+    mini->exp_len = export_len(mini->export);
 }
+
 
 int	export_builtin(t_vars *mini)
 {

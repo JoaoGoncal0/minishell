@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 23:46:24 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 13:23:38 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,8 @@ void	env_update1(t_vars *mini)
 void	env_update(t_vars *mini, char *str)
 {
 	int	i;
-	//int k;
 	
 	i = 0;
-	//k = 0;
-	//while (k < mini->env_len)
-	//{
-	//	if (mini->new_env[k])
-	//	{
-	//		free(mini->new_env[k]);
-	//		mini->new_env[k] = NULL;
-	//	}
-	//	k++;
-	//}
 	while (i < mini->env_len)
 	{
 		if (mini->env[i] && 
@@ -72,7 +61,6 @@ void	env_update(t_vars *mini, char *str)
 		i++;
 	}
 	mini->env[i] = NULL;
-	//env_update1(mini);
 }
 
 void free_first_string(char **arr)
@@ -116,31 +104,98 @@ void	create_env(t_vars *mini)
 	mini->flag_env = 1;
 }
 
-void	init_env(char **env, t_vars *mini)
+void 	init_mini(void)
 {
-	int	i;
-	
-	i = 0;
-	mini->flag_env = 0;
-	if (!*env || !env)
-		create_env(mini);
-	if (env && mini->flag_env == 0)
-	{	
-		while (env[i])
-			i++;
-		mini->env = malloc(sizeof(char *) * (i + 1));
-		mini->new_env = malloc(sizeof(char *) * (i + 10));
-		if (!mini->env || !mini->new_env)
-			return ;
-		mini->env_len = i;
-		i = 0;
-		while (i < mini->env_len)
-		{
-			mini->env[i] = ft_strdup(env[i]);
-			i++;
-		}
-		mini->env[i] = NULL;
+	t_vars *mini = malloc(sizeof(t_vars));
+	if (!mini)
+		return;
+	if (mini)
+	{
+    	mini->env = NULL;
+    	mini->new_env = NULL;
+    	mini->export = NULL;
+    	mini->new_export = NULL;
 	}
+}
+
+// void	init_env(char **env, t_vars *mini)
+// {
+// 	int	i;
+	
+// 	i = 0;
+	
+// 	mini->flag_env = 0;
+// 	if (!*env || !env)
+// 	{
+// 		create_env(mini);
+// 		return;
+// 	}
+// 	if (env && mini->flag_env == 0)
+// 	{	
+// 		while (env[i])
+// 			i++;
+// 		mini->env = malloc(sizeof(char *) * (i + 1));
+// 		mini->new_env = malloc(sizeof(char *) * (i + 10));
+// 		if (!mini->env || !mini->new_env)
+// 		{
+// 			free_array(mini->env);
+// 			free_array(mini->new_env);
+// 			return;
+// 		}
+// 		mini->env_len = i;
+// 		i = 0;
+// 		while (i < mini->env_len)
+// 		{
+// 			mini->env[i] = ft_strdup(env[i]);
+// 			if (!mini->env)
+// 				mini->env = NULL;
+// 			i++;
+// 		}
+// 		mini->env[i] = NULL;
+// 	}
+// }
+
+void init_env(char **env, t_vars *mini) 
+{
+    int i = 0;
+
+    mini->flag_env = 0;
+    if (!env || !*env) 
+	{
+        create_env(mini);
+        return;
+    }
+    while (env[i])
+		i++;
+    mini->env = malloc(sizeof(char *) * (i + 1));
+    mini->new_env = malloc(sizeof(char *) * (i + 10));
+    if (!mini->env || !mini->new_env) 
+	{
+        free(mini->env);
+        free(mini->new_env);
+        return;
+    }
+    mini->env_len = i;
+    i = 0;
+    while (i < mini->env_len) 
+	{
+        mini->env[i] = ft_strdup(env[i]);
+        if (!mini->env[i]) 
+		{
+            while (i > 0) 
+                free(mini->env[--i]);
+            free(mini->env);
+            free(mini->new_env);
+            return;
+        }
+        i++;
+    }
+    mini->env[i] = NULL;
+    i = 0;
+    while (i < (mini->env_len + 10)) {
+        mini->new_env[i] = NULL;
+        i++;
+    }
 }
 
 void	env_builtin(t_vars *mini)
@@ -172,6 +227,8 @@ void	shlvl_update(t_vars *mini)
 	increment = ft_atoi(shell_level);
 	increment++;
 	new_shell_level = ft_strjoin("SHLVL=", ft_itoa(increment));
+	if (!new_shell_level)
+		return;
 	free(mini->env[i]);
 	mini->env[i] = ft_strdup(new_shell_level);
 	free(new_shell_level);

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 00:19:41 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:56:57 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ int	unset_builtin(t_vars *mini)
 		exp_update(mini, str);
 		i++;
 	}
+	free_array(split);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/17 14:43:09 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:36:03 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	main(int ac, char **av, char **env)
 
 	(void)ac;
 	(void)av;
+	init_mini();
 	init_env(env, &mini);
 	shlvl_update(&mini);
 	init_export(&mini);

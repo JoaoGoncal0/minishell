@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elemesmo <elemesmo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:23:02 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/05/27 23:30:11 by elemesmo         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:21:15 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**ft_split(char const *s, char c)
 	p = ft_countwords(s, c);
 	n = malloc(sizeof(char *) * (p + 1));
 	if (!n)
-		return (0);
+		return (NULL);
 	while (i < p)
 	{
 		while (*s == c && *s != '\0')
