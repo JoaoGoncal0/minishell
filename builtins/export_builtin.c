@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 20:43:45 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:30:44 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,18 @@ void	init_export(t_vars *mini)
 	mini->export = malloc(sizeof(char *) * (mini->env_len + 1));
 	mini->new_export = malloc(sizeof(char *) * (mini->env_len + 10));
 	if (!mini->export || !mini->new_export)
-		return ;
+		return;
 	while (i < mini->env_len - 1)
 	{
-		if (!mini->env[i])
-		{
-			i++;
-			continue;
-		}
 		if (mini->env[i])
 		{
 			mini->export[i] = ft_strdup(mini->env[i]);
-			i++;
+			if (!mini->export[i])
+				return;
 		}
+		else
+			mini->export[i] = NULL;
+		i++;
 	}
 	mini->export[i] = NULL;
 	mini->exp_len = export_len(mini->export);
@@ -51,7 +50,7 @@ int	export_builtin(t_vars *mini)
 		mini->exp_len = export_len(mini->export);
 		while (i < mini->exp_len)
 		{
-			if (mini->export[i] && \
+			if (mini->export[i] && 
 			!(ft_strncmp(mini->export[i], "/3/4", 2) == 0))
 				printf("declare -x %s\n", mini->export[i]);
 			i++;
@@ -81,7 +80,6 @@ int		export_len(char **str)
 		counter++;
 		i++;
 	}
-	printf("counter = %d\n", counter);
 	return (counter);
 }
 

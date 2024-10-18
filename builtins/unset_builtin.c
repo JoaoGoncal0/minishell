@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 19:43:52 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:19:41 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,20 @@ void	pwd_builtin(void)
 char	*get_var(t_vars *mini, char *var)
 {
 	int i;
+	size_t var_len;
 
-	i = 0;
 	if (!var || !mini || !mini->export || !mini->env)
 		return (NULL);
+	var_len = ft_strlen(var);
+	i = 0;
 	while (i < mini->exp_len)
 	{
-		if (!mini->export[i])
+		if (mini->export[i] && \
+		ft_strncmp(mini->export[i], var, var_len) == 0)
 		{
-			i++;
-			continue;
+			if (mini->export[i][var_len] == '=' || mini->export[i][var_len] == '\0')
+				return (mini->export[i]);
 		}
-		if (ft_strncmp(mini->export[i], var, ft_strlen(var)) == 0)
-			return (mini->export[i]);
 		i++;
 	}
 	return (NULL);

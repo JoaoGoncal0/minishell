@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 20:38:18 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:23:20 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,6 @@ void	export_update(t_vars *mini, char *str)
         printf("Error: mini->new_export not initialized.\n");
         return;
 	}
-	// while (k < mini->exp_len)
-	// {
-	// 	if (mini->new_export[k])
-	// 	{
-	// 		free(mini->new_export[k]);
-	// 		mini->new_export[k] = NULL;
-	// 	}
-	// 	k++;
-	// }
-	printf("mini->exp_len = %d\n", mini->exp_len);
-	//free_double_array(mini->new_export, mini);
 	while (i < mini->exp_len)
 	{
 		if (mini->export[i] && str_compare(mini->export[i], str) == 0)
@@ -162,7 +151,7 @@ void	exp_update1(t_vars *mini)
 {
 	int i;
 	char **temp;
-	int j;
+	//int j;
 
 	i = 0;
 	free_double_array(mini->export, mini);
@@ -179,28 +168,33 @@ void	exp_update1(t_vars *mini)
 		i++;
 	}
 	mini->export[i] = NULL;
-	printf("\n\n----- UPDATED ENV ------\n\n\n");
-	j = -1;
-	 while (++j < mini->exp_len)
-	 	printf("%s\n", mini->export[j]);	
+	//printf("\n\n----- UPDATED ENV ------\n\n\n");
+	//j = -1;
+	//while (++j < mini->exp_len)
+	// 	printf("%s\n", mini->export[j]);	
 }
 
 void	exp_update(t_vars *mini, char *str)
 {
 	int	i;
+	char *new_str;
 
 	i = 0;
-	free_double_array(mini->new_export, mini);
-	while (i < mini->exp_len)
+	new_str = ft_strjoin("/3/4", str);
+	if (!new_str)
+		return;
+	while (mini->export[i] && i < mini->exp_len)
 	{
-		if ((mini->export[i] && 
-		ft_strncmp(mini->export[i], str, ft_strlen(str)) != 0))
-			mini->new_export[i] = ft_strdup(mini->export[i]);
-		else if ((mini->export[i] && 
-		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0))
-			mini->new_export[i] = ft_strjoin("/3/4", str);
+		if (mini->export[i] && 
+		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0)
+		{
+			free(mini->export[i]);
+			mini->export[i] = ft_strdup(new_str);
+			return;
+		}
 		i++;
 	}
-	mini->new_export[i] = NULL;
-	exp_update1(mini);
+	free(new_str);
+    mini->export[i] = NULL;
+	//exp_update1(mini);
 }

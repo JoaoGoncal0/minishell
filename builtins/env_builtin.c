@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 20:38:31 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 23:46:24 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,31 +48,31 @@ void	env_update1(t_vars *mini)
 void	env_update(t_vars *mini, char *str)
 {
 	int	i;
-	int k;
-
+	//int k;
+	
 	i = 0;
-	k = 0;
-	while (k < mini->env_len)
-	{
-		if (mini->new_env[k])
-		{
-			free(mini->new_env[k]);
-			mini->new_env[k] = NULL;
-		}
-		k++;
-	}
+	//k = 0;
+	//while (k < mini->env_len)
+	//{
+	//	if (mini->new_env[k])
+	//	{
+	//		free(mini->new_env[k]);
+	//		mini->new_env[k] = NULL;
+	//	}
+	//	k++;
+	//}
 	while (i < mini->env_len)
 	{
-		if ((mini->env[i] && 
-		ft_strncmp(mini->env[i], str, ft_strlen(str)) != 0))
-			mini->new_env[i] = ft_strdup(mini->env[i]);
-		else if ((mini->env[i] && 
-		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0))
-			mini->new_env[i] = ft_strjoin("/3/4", str);
+		if (mini->env[i] && 
+		ft_strncmp(mini->env[i], str, ft_strlen(str)) == 0)
+		{
+			free(mini->env[i]);
+			mini->env[i] = ft_strjoin("/3/4", str);
+		}	
 		i++;
 	}
-	mini->new_env[i] = NULL;
-	env_update1(mini);
+	mini->env[i] = NULL;
+	//env_update1(mini);
 }
 
 void free_first_string(char **arr)
