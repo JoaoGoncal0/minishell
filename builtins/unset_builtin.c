@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:09:04 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 14:50:10 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:43:52 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	*get_var(t_vars *mini, char *var)
 	int i;
 
 	i = 0;
-	printf("var= %s\n", var);
 	if (!var || !mini || !mini->export || !mini->env)
 		return (NULL);
 	while (i < mini->exp_len)
@@ -37,10 +36,7 @@ char	*get_var(t_vars *mini, char *var)
 			continue;
 		}
 		if (ft_strncmp(mini->export[i], var, ft_strlen(var)) == 0)
-		{
-			printf("mini = %s\n", mini->export[i]);
 			return (mini->export[i]);
-		}
 		i++;
 	}
 	return (NULL);
@@ -65,7 +61,6 @@ int	unset_builtin(t_vars *mini)
 	while (split[i])
 	{
 		str = get_var(mini, split[i]);
-		printf("str = %s\n", str);
 		if (!str)
 		{
 			free(split);

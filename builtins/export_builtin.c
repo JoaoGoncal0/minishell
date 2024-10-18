@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 17:34:24 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/17 17:53:51 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:43:45 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,11 @@ int	export_builtin(t_vars *mini)
 		export_var(mini);
 	else
 	{
+		mini->exp_len = export_len(mini->export);
 		while (i < mini->exp_len)
 		{
-			if (mini->export[i])
+			if (mini->export[i] && \
+			!(ft_strncmp(mini->export[i], "/3/4", 2) == 0))
 				printf("declare -x %s\n", mini->export[i]);
 			i++;
 		}
@@ -70,11 +72,17 @@ void	swap_strings(char **a, char **b)
 int		export_len(char **str)
 {
 	int i;
+	int counter;
 	
 	i = 0;
+	counter = 0;
 	while (str[i])
+	{
+		counter++;
 		i++;
-	return (i);
+	}
+	printf("counter = %d\n", counter);
+	return (counter);
 }
 
 void	sorting_export(t_vars *mini)
@@ -83,7 +91,6 @@ void	sorting_export(t_vars *mini)
 	int	swapped;
 
 	swapped = 1;
-	printf("\n\n AQUI \n\n");
 	while (swapped)
 	{
 		swapped = 0;
@@ -92,7 +99,8 @@ void	sorting_export(t_vars *mini)
 		mini->export[i] && mini->export[i + 1])
 		{
 			if (ft_strncmp(mini->export[i], \
-				mini->export[i + 1], ft_strlen(mini->export[i])) > 0)
+				mini->export[i + 1], ft_strlen(mini->export[i])) > 0 && \
+				(ft_strncmp(mini->export[i], "/3/4", 2) != 0))
 			{
 				swap_strings(&mini->export[i], &mini->export[i + 1]);
 				swapped = 1;
