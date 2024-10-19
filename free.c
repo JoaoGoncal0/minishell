@@ -6,11 +6,26 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:51:54 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 13:14:28 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:13:23 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_fd(int p, t_vars *mini)
+{
+	int i;
+
+	i = 0;
+	while (i < p)
+	{
+		close(mini->fd[2 * i]);
+		close(mini->fd[2 * i + 1]);
+		i++;
+	}
+	free(mini->fd);
+	mini->fd = NULL;
+}
 
 void	free_array(char **array)
 {
@@ -46,7 +61,7 @@ void	free_env_export(t_vars *mini)
 		{
 			free_array(mini->export);
 			mini->export = NULL;
-			printf("test3\n");
+			printf("test3\n"); 
 		}
 			
 		if (mini->new_export)
@@ -55,8 +70,8 @@ void	free_env_export(t_vars *mini)
 			mini->new_export = NULL;
 			printf("test4\n");
 		}
-		//free(mini);
+		if (mini->fd)
+			free_fd(numpipe(mini->input), mini);
 		printf("test5\n");
 	}
-	//free(mini);
 }

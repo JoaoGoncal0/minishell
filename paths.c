@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 00:42:08 by elemesmo          #+#    #+#             */
-/*   Updated: 2024/10/17 14:47:06 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:11:42 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,41 @@ void	closeall(t_vars *mini)
 		free(mini->fd);
 }
 
+//void	allocfd(int p, t_vars *mini)
+//{
+//	int	i;
+//
+//	i = 0;
+//	mini->fd = malloc(sizeof(int) * (p + 1));
+//	while (i < p)
+//	{
+//		if (pipe(mini->fd + 2 * i) < 0)
+//			return ;
+//		i++;
+//	}
+//}
+
 void	allocfd(int p, t_vars *mini)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	mini->fd = malloc(sizeof(int) * (p + 1));
+	if (p <= 0)
+		return;
+	mini->fd = malloc(sizeof(int) * 2 * p);
+	if (!mini->fd)
+		return;
 	while (i < p)
 	{
 		if (pipe(mini->fd + 2 * i) < 0)
-			return ;
+		{
+			free(mini->fd);
+			return;
+		}
 		i++;
 	}
 }
+
 
 void	checkpath(char *cmd, t_vars *mini)
 {

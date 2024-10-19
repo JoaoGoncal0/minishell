@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/18 11:36:03 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:05:18 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,26 @@ int	checkinput(t_vars *mini)
 
 int	main(int ac, char **av, char **env)
 {
-	t_vars	mini;
+	t_vars	*mini;
 
 	(void)ac;
 	(void)av;
-	init_mini();
-	init_env(env, &mini);
-	shlvl_update(&mini);
-	init_export(&mini);
+	mini = init_mini();
+	init_env(env, mini);
+	shlvl_update(mini);
+	init_export(mini);
 	while (1)
 	{
-		mini.input = readline("a espera> ");
-		if (ft_strlen(mini.input) > 0)
+		mini->input = readline("a espera> ");
+		if (ft_strlen(mini->input) > 0)
 		{
-			add_history(mini.input);
-			mini.input = quotescrazy(mini.input);
-			if (mini.input == NULL)
+			add_history(mini->input);
+			mini->input = quotescrazy(mini->input);
+			if (mini->input == NULL)
 				printf ("Quote error\n");
 			else
-				checkinput(&mini);
+				checkinput(mini);
+			free(mini->input);
 		}
 	}
 }

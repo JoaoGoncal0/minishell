@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/18 11:36:13 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:01:26 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	env_update(t_vars *mini, char *str);
 void	create_env(t_vars *mini);
 void	free_first_string(char **arr);
 void	shlvl_update(t_vars *mini);
-void 	init_mini(void);
+t_vars 	*init_mini(void);
 
 // builtin export
 void	init_export(t_vars *mini);
@@ -155,5 +155,6 @@ int		check_heredoc(t_vars *mini);
 // free.c
 void	free_double_array(char **str, t_vars *mini);
 void	free_env_export(t_vars *mini);
+void	free_fd(int p, t_vars *mini);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 23:46:26 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 11:13:12 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:07:21 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,26 +147,27 @@ void	free_double_array(char **str, t_vars *mini)
 	}
 }
 
-void	exp_update(t_vars *mini, char *str)
-{
-	int	i;
-	char *new_str;
-
-	i = 0;
-	new_str = ft_strjoin("/3/4", str);
-	if (!new_str)
-		return;
-	while (mini->export[i] && i < mini->exp_len)
-	{
-		if (mini->export[i] && 
-		ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0)
+		void	exp_update(t_vars *mini, char *str)
 		{
-			free(mini->export[i]);
-			mini->export[i] = ft_strdup(new_str);
-			return;
+			int	i;
+			char *new_str;
+
+			i = 0;
+			new_str = ft_strjoin("/3/4", str);
+			if (!new_str)
+				return;
+			while (mini->export[i] && i < mini->exp_len)
+			{
+				if (mini->export[i] && 
+				ft_strncmp(mini->export[i], str, ft_strlen(str)) == 0)
+				{
+					free(mini->export[i]);
+					mini->export[i] = ft_strdup(new_str);
+					free(new_str);
+					return;
+				}
+				i++;
+			}
+			free(new_str);
+			mini->export[i] = NULL;
 		}
-		i++;
-	}
-	free(new_str);
-    mini->export[i] = NULL;
-}

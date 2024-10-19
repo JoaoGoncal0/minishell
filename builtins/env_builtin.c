@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/19 00:10:21 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 16:15:01 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,18 +104,17 @@ void	create_env(t_vars *mini)
 	mini->flag_env = 1;
 }
 
-void 	init_mini(void)
+t_vars 	*init_mini(void)
 {
 	t_vars *mini = malloc(sizeof(t_vars));
 	if (!mini)
-		return;
-	if (mini)
-	{
-    	mini->env = NULL;
-    	mini->new_env = NULL;
-    	mini->export = NULL;
-    	mini->new_export = NULL;
-	}
+		return (NULL);
+    mini->env = NULL;
+    mini->new_env = NULL;
+    mini->export = NULL;
+    mini->new_export = NULL;
+	mini->fd = NULL;
+	return (mini);
 }
 
 // void	init_env(char **env, t_vars *mini)
@@ -213,6 +212,7 @@ void	shlvl_update(t_vars *mini)
 	char *shell_level;
 	char *new_shell_level;
 	int increment;
+	char *number;
 
 	i = find_var(mini, "SHLVL");
 	if (i == -1)
@@ -220,10 +220,12 @@ void	shlvl_update(t_vars *mini)
 	shell_level = ft_strchr(mini->env[i], '=') + 1;
 	increment = ft_atoi(shell_level);
 	increment++;
-	new_shell_level = ft_strjoin("SHLVL=", ft_itoa(increment));
+	number = ft_itoa(increment);
+	new_shell_level = ft_strjoin("SHLVL=", number);
 	if (!new_shell_level)
 		return;
 	free(mini->env[i]);
+	free(number);
 	mini->env[i] = ft_strdup(new_shell_level);
 	free(new_shell_level);
 }
