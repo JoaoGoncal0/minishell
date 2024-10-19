@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/19 00:04:46 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:10:21 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ void init_env(char **env, t_vars *mini)
     while (env[i])
 		i++;
     mini->env = malloc(sizeof(char *) * (i + 1));
-    mini->new_env = malloc(sizeof(char *) * (i + 10));
+	mini->new_env = calloc(i + 10, sizeof(char *));
     if (!mini->env || !mini->new_env) 
 	{
         free(mini->env);
@@ -191,11 +191,6 @@ void init_env(char **env, t_vars *mini)
         i++;
     }
     mini->env[i] = NULL;
-    i = 0;
-    while (i < (mini->env_len + 10)) {
-        mini->new_env[i] = NULL;
-        i++;
-    }
 }
 
 void	env_builtin(t_vars *mini)
