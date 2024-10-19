@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 13:23:38 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 00:04:46 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,6 @@ void	env_builtin(t_vars *mini)
 	int	i;
 
 	i = 0;
-	printf("len = %d\n", mini->env_len);
 	while (i < mini->env_len)
 	{
 		if (mini->env[i] && \
