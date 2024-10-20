@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 01:55:42 by elemesmo          #+#    #+#             */
-/*   Updated: 2024/10/12 16:12:38 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 19:01:34 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	findcmdplace(char *input, t_vars *mini)
 		while (input[start] && !ft_isprint(input[start]))
 			start++;
 		if (!input[start])
-			break ;
+			break;
 		end = start;
 		while (input[end] && ft_isprint(input[end]))
 			end++;

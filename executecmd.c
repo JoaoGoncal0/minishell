@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 17:08:32 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/17 14:59:59 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 21:35:05 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,14 @@ int	indicateredi(t_vars *mini, int *fd, char *redirection)
 
 void	execute(t_vars *mini, int i, int p)
 {
+	printf("valor do i = %d\n, valor do p = %d\n", i, p);
+	printf("test1\n");
 	if (p > 0)
 	{
+		printf("test2\n");
 		if (fastcheckpath(mini, 1, 0) == 0)
 		{
+			printf("test3\n");
 			ft_printf("%s: command not found\n", mini->trueflag[0]);
 			return ;
 		}
@@ -130,6 +134,9 @@ void	executeone(t_vars *mini)
 			exit(2);
 		else
 			dup2(mini->fd[1], 1);
+		 if (mini->check == NULL || mini->trueflag == NULL || 
+		mini->trueflag[0] == NULL)
+			return;
 		if (execve(mini->check, mini->trueflag, mini->env) == -1)
 			ft_printf("aiai||%s: command not found\n", mini->trueflag[0]);
 		exit(1);

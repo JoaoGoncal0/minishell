@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/27 15:26:12 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/19 16:15:01 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:40:39 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ t_vars 	*init_mini(void)
     mini->export = NULL;
     mini->new_export = NULL;
 	mini->fd = NULL;
+	mini->check = NULL;
 	return (mini);
 }
 

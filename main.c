@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/19 16:05:18 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 19:07:13 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	checkinput(t_vars *mini)
 	}
 	if (fastcheckpath(mini, 0, 0) == 1)
 	{
+		printf("\nOLA\n");
 		execute(mini, 0, numpipe(mini->input));
 		free(mini->check);
 		return (4);

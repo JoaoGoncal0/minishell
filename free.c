@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 10:51:54 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/19 16:13:23 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:25:13 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,12 @@ void	free_env_export(t_vars *mini)
 			mini->new_env = NULL;
 			printf("test2\n");
 		}
-			
 		if (mini->export)
 		{
 			free_array(mini->export);
 			mini->export = NULL;
 			printf("test3\n"); 
 		}
-			
 		if (mini->new_export)
 		{
 			free_array(mini->new_export);
