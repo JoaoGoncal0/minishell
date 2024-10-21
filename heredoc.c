@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:21:30 by jomendes          #+#    #+#             */
-/*   Updated: 2024/10/18 10:51:39 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:29:44 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int		heredoc(t_vars *mini)
 	pid_t	pid;
 	int		fd[2];
 	int		status;
-	//int		exit_status;
+	int		exit_status;
 
 	fd[0] = -1;
 	fd[1] = -1;
@@ -157,12 +157,12 @@ int		heredoc(t_vars *mini)
 	wait(&status);
 	if (WIFEXITED(status) && WEXITSTATUS(status) != EXIT_SUCCESS)
 		return (EXIT_FAILURE);
-	//exit_status = WEXITSTATUS(status);
-	// if (exit_status == EXIT_FAILURE || xit_status == EXIT_HEREDOC_BREAK)
-	//{
-	//	free_minishell(mini);
-	//	return (exit_status);
-	//}
+	exit_status = WEXITSTATUS(status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+	{
+		//free_minishell(mini);
+		return (exit_status);
+	}
 	return (EXIT_SUCCESS);
 }
 

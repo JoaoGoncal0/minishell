@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 11:21:42 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/19 16:01:26 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:51:25 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,12 @@ int		check_heredoc(t_vars *mini);
 void	free_double_array(char **str, t_vars *mini);
 void	free_env_export(t_vars *mini);
 void	free_fd(int p, t_vars *mini);
+
+// signals.c
+void    sigint_handler(int sig);
+void    signal_heredoc(int sig);
+void    signals_handler(void);
+void    child_handler(int signal);
+void    child_signals_handler(void);
 
 #endif

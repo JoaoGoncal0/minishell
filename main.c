@@ -6,7 +6,7 @@
 /*   By: jomendes <jomendes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 11:21:17 by dinda-si          #+#    #+#             */
-/*   Updated: 2024/10/19 19:07:13 by jomendes         ###   ########.fr       */
+/*   Updated: 2024/10/21 11:52:02 by jomendes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	main(int ac, char **av, char **env)
 	init_export(mini);
 	while (1)
 	{
+		signals_handler();
 		mini->input = readline("a espera> ");
 		if (ft_strlen(mini->input) > 0)
 		{
